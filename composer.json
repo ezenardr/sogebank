@@ -9,10 +9,14 @@
         "php": "^8.2",
         "blade-ui-kit/blade-icons": "^1.7",
         "codeat3/blade-ant-design-icons": "^2.0",
+        "codeat3/blade-solar-icons": "^1.1",
+        "codeat3/blade-vaadin-icons": "^1.5",
         "faisal50x/blade-ionicons": "^1.0",
+        "hasnayeen/blade-eva-icons": "^2.0",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
-        "owenvoke/blade-fontawesome": "^2.8"
+        "owenvoke/blade-fontawesome": "^2.8",
+        "secondnetwork/blade-tabler-icons": "^3.28"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
