@@ -43,40 +43,24 @@ ___
    git clone https://github.com/ezenardr/sogebank.git
    cd sogebank
 ```
-2. **Installer les dépendances : :**
-```bash
-composer install
-npm install
-```
-Dans un nouveau terminal, lancez :
-```bash
-php artisan serve
-```
-3. **Configurer les variables d'environnement :**
+2. **Configurer les variables d'environnement :**
 ```bash 
 cp .env.example .env
 php artisan key:generate
 ```
-4. **Configurer la base de données dans le fichier `.env`**
+
+3. **Installer les dépendances : :**
 ```bash
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=sogebank
-DB_USERNAME=root
-DB_PASSWORD=
+composer install
+npm install
 ```
-5. **Lancer les migrations de la base de données :**
-```bash
-php artisan migrate
-```
-6. **Démarrer le serveur de développement :**
+3. **Démarrer le serveur de développement :**
 ```bash
     php artisan serve
 ```
 Dans un nouveau terminal, lancez :
 ```bash
-php artisan serve
+npm run dev
 ```
 
 ## 🤝 Comment contribuer
