@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="flex flex-col gap-3">
-            <span class="font-semibold text-[22px] text-[#343C6A]">Transactions Récentes</span>
+            <span class="font-semibold text-[22px] text-primary-2">Transactions Récentes</span>
             <div class=" flex flex-col gap-4 bg-white px-8 py-4 max-w-[450px] rounded-[25px]">
                 <div class="flex justify-between items-center ">
                     <div class="w-[55px] h-[55px] flex items-center justify-center rounded-full bg-[#FFF5D9]">
