@@ -11,8 +11,7 @@
                 {{-- Cartes container --}}
                 <div class="flex overflow-x-auto lg:grid grid-cols-2 gap-10">
                     {{-- card 1 --}}
-                    <div
-                        class=" min-w-full flex flex-col  bg-gradient-to-r from-[#4C49ED] to-[#0A06F4] rounded-[20px] justify-between">
+                    <div class="min-w-full h-[213px] flex flex-col bg-gradient-to-r from-[#4C49ED] to-[#0A06F4] rounded-[20px] justify-between">
                         <div class="flex flex-col gap-3 p-4 lg:p-[25px]">
                             <div class="flex justify-between">
                                 <div class="flex flex-col">
@@ -68,8 +67,7 @@
 
                     </div>
                     {{-- card 2 --}}
-                    <div
-                        class="min-w-full flex flex-col  bg-white border border-[#DFEAF2] rounded-[20px] justify-between">
+                    <div class="min-w-full h-[213px] flex flex-col bg-white border border-[#DFEAF2] rounded-[20px] justify-between">
                         <div class="flex flex-col gap-3 p-4 lg:p-[25px]">
                             <div class="flex justify-between">
                                 <div class="flex flex-col">
@@ -207,231 +205,332 @@
                 </nav>
             </div>
             {{-- partie tab recent --}}
-            <div class="rounded-[25px] py-2 bg-white mt-4">
+            <div class="hidden rounded-[25px] py-2 bg-white mt-8 lg:block">
                 <table class="min-w-full border-collapse">
                     <thead class="">
-                    <tr class="text-primary-3 text-[16px] font-medium">
+                        <tr class="text-primary-3 text-[16px] font-medium">
+            
+                            <th class=" p-5 text-left ">Description</th>
+                            <th class=" p-5 text-left">Transaction ID</th>
+                            <th class=" p-5 text-left">Type</th>
+                            <th class=" p-5 text-left">Card</th> 
+                            <th class=" p-5 text-left">Date</th>
+                            <th class=" p-5 text-left">Amount</th>
+                            <th class=" p-5 text-left">Receipt</th>
 
-                        <th class=" p-5 text-left ">Description</th>
-                        <th class=" p-5 text-left hidden lg:block">Transaction ID</th>
-                        <th class=" p-5 text-left">Type</th>
-                        <th class=" p-5 text-left hidden lg:inline-block">Card</th>
-                        <th class=" p-5 text-left hidden lg:inline-block ">Date</th>
-                        <th class=" p-5 text-left">Amount</th>
-                        <th class=" p-5 text-left hidden lg:block">Receipt</th>
-
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr class="h-[65px]">
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div class="flex space-x-4">
-                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert"
-                                     class="hidden lg:inline-block">
-                                <span>Spotify Subscription</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>#12548796</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>Shopping</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>1234****</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-flex text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>28 Jan, 10.30 AM</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
-                            <div>
-                                <span class="text-[#FE5C73]">-$2,500</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <a href="#">
-                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
-                                    <span>Download</span>
+                        <tr class="h-[65px]">
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div class="flex space-x-4">
+                                    <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                    <span>Spotify Subscription</span>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="h-[65px]">
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div class="flex space-x-4">
-                                <img class="rotate-180 hidden lg:inline-block" src="{{'assets/icons/transfer-icon.svg'}}"
-                                     alt="icon transfert">
-                                <span>Freepik Sales</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>#12548796</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>Transfer</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5  hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>1234****</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>25 Jan, 10.30 PM</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
-                            <div>
-                                <span class="text-[#16DBAA]">+$750</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <a href="#">
-                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
-                                    <span>Download</span>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>#12548796</span>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="h-[65px]">
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div class="flex space-x-4">
-                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert"
-                                     class="hidden lg:inline-block">
-                                <span>Spotify Subscription</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>#12548796</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>Shopping</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>1234****</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>28 Jan, 10.30 AM</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
-                            <div>
-                                <span class="text-[#FE5C73]">-$2,500</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <a href="#">
-                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
-                                    <span>Download</span>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>Shopping</span>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="h-[65px]">
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div class="flex space-x-4">
-                                <img class="rotate-180 hidden lg:inline-block" src="{{'assets/icons/transfer-icon.svg'}}"
-                                     alt="icon transfert">
-                                <span>Freepik Sales</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>#12548796</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>Transfer</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5  hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>1234****</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>25 Jan, 10.30 PM</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
-                            <div>
-                                <span class="text-[#16DBAA]">+$750</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <a href="#">
-                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
-                                    <span>Download</span>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>1234****</span>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="h-[65px]">
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div class="flex space-x-4">
-                                <img class="rotate-180 hidden lg:inline-block" src="{{'assets/icons/transfer-icon.svg'}}"
-                                     alt="icon transfert">
-                                <span>Freepik Sales</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>#12548796</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>Transfer</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5  hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>1234****</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <div>
-                                <span>25 Jan, 10.30 PM</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
-                            <div>
-                                <span class="text-[#16DBAA]">+$750</span>
-                            </div>
-                        </td>
-                        <td class=" py-2 px-5 hidden lg:inline-block text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                            <a href="#">
-                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
-                                    <span>Download</span>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>28 Jan, 10.30 AM</span>
                                 </div>
-                            </a>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                                <div>
+                                    <span class="text-[#FE5C73]">-$2,500</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <a href="#">
+                                    <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                        <span>Download</span>
+                                    </div>
+                                </a>
+                            </td> 
+                        </tr>
+                        <tr class="h-[65px]">
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div class="flex space-x-4">
+                                    <img class="rotate-180" src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                    <span>Freepik Sales</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>#12548796</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>Transfer</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>1234****</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>25 Jan, 10.30 PM</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                                <div>
+                                    <span class="text-[#16DBAA]">+$750</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <a href="#">
+                                    <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                        <span>Download</span>
+                                    </div>
+                                </a>
+                            </td> 
+                        </tr>
+
+                        <tr class="h-[65px]">
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div class="flex space-x-4">
+                                    <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                    <span>Mobile Service</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>#12548796</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>Service</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>1234****</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>17 Jan, 8.17 AM</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                                <div>
+                                    <span class="text-[#FE5C73]">-$2,500</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <a href="#">
+                                    <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                        <span>Download</span>
+                                    </div>
+                                </a>
+                            </td>  
+                        </tr>
+                        <tr class="h-[65px]">
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div class="flex space-x-4">
+                                    <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                    <span>Wilson</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>#12548796</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>Transfer</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>1234****</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>15 Jan, 9.30 PM</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                                <div>
+                                    <span class="text-[#FE5C73]">-$2,500</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <a href="#">
+                                    <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                        <span>Download</span>
+                                    </div>
+                                </a>
+                            </td>  
+                        </tr>
+                        <tr class="h-[65px]">
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div class="flex space-x-4">
+                                    <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert" class="rotate-180">
+                                    <span>Emily</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>#12548796</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>Transfer</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>1234****</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <div>
+                                    <span>2 Jan, 10.30 AM</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                                <div>
+                                    <span class="text-[#16DBAA]">+$840</span>
+                                </div>
+                            </td>
+                            <td class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
+                                <a href="#">
+                                    <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                        <span>Download</span>
+                                    </div>
+                                </a>
+                            </td>  
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        {{-- partie tab recent mobile --}}
+        <div class="rounded-[25px] py-2 bg-white mt-8 lg:hidden md:hiden">
+            <table class="min-w-full border-collapse">
+              
+                <tbody>
+                    <tr class="h-[65px]">
+                        <td class=" py-2 px-5  text-primary-2 font-normal ">
+                            <div class="flex space-x-4">
+                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                <div class="flex flex-col gap-[10x]">
+                                    <span class="text-[13px]">Spotify Subscription</span>
+                                    <span class="text-[13px]">28 Jan, 10.30 AM</span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                    
+                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                            <div>
+                                <span class="text-[#FE5C73]">-$2,500</span>
+                            </div>
+                        </td>
+                    
+                    </tr>
+                    <tr class="h-[65px]">
+                        <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
+                            <div class="flex space-x-4">
+                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert "  class="rotate-180">
+                                <div class="flex flex-col gap-[10x]">
+                                    <span class="text-[13px]">Freepik Sales</span>
+                                    <span class="text-[13px]">25 Jan, 10.30 AM</span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                            <div>
+                                <span class="text-[#16DBAA]">+$750</span>
+                            </div>
+                        </td>
+              
+                    </tr>
+
+                    <tr class="h-[65px]">
+                        <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
+                            <div class="flex space-x-4">
+                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                <div class="flex flex-col gap-[10x]">
+                                    <span class="text-[13px]">Mobile Service</span>
+                                    <span class="text-[13px]">17 Jan, 8.17 AM</span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                     
+                     
+                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                            <div>
+                                <span class="text-[#FE5C73]">-$2,500</span>
+                            </div>
+                        </td>
+                    
+                    </tr>
+                    <tr class="h-[65px]">
+                        <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
+                            <div class="flex space-x-4">
+                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert">
+                                <div class="flex flex-col gap-[10x]">
+                                    <span class="text-[13px]">Mobile Service</span>
+                                    <span class="text-[13px]">15 Jan, 9.30 PM</span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                   
+                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                            <div>
+                                <span class="text-[#FE5C73]">-$2,500</span>
+                            </div>
+                        </td>
+                     
+                    </tr>
+                    <tr class="h-[65px]">
+                        <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
+                            <div class="flex space-x-4">
+                                <img src="{{'assets/icons/transfer-icon.svg'}}" alt="icon transfert" class="rotate-180">
+                                <div class="flex flex-col gap-[10x]">
+                                    <span class="text-[13px]">Mobile Service</span>
+                                    <span class="text-[13px]">2 Jan, 10.30 AM</span>
+                                </div>
+                                
+                            </div>
+                        </td>
+                 
+                        <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
+                            <div>
+                                <span class="text-[#16DBAA]">+$840</span>
+                            </div>
+                        </td>
+                  
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
     {{-- partie previously/next --}}
