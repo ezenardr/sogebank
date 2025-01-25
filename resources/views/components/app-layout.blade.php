@@ -176,7 +176,7 @@
     </nav>
 
     {{--    children--}}
-    <main class="p-4">
+    <main class="p-4 overflow-y-auto h-full">
         {{ $slot }}
     </main>
 </div>
