@@ -1,3 +1,3 @@
 <x-auth-layout>
-    register
+    Login
 </x-auth-layout>

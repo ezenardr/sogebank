@@ -9,11 +9,18 @@ use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function showRegister() :View
+    public function showRegister(): View
     {
         return view('auth.register');
     }
-    public function register(Request $request){
+
+    public function showLogin(): View
+    {
+        return view('auth.login');
+    }
+
+    public function register(Request $request)
+    {
         $validated = $request->validate([
             'first_name' => 'required|string|max:250',
             'last_name' => 'required|string|max:250',
