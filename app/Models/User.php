@@ -20,8 +20,8 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model) {
-            if(empty($model->user_id)){
-                $model -> user_id = (string) \Illuminate\Support\Str::uuid();
+            if(empty($model->id)){
+                $model -> id = (string) \Illuminate\Support\Str::uuid();
             }
         });
     }

@@ -1,4 +1,5 @@
 <x-auth-layout>
+    @section('title', "Register - Sogebanking")
     <div class="flex flex-col text-center items-center max-w-[450px] justify-center gap-1">
         <p class="font-medium text-[20px] text-[#333333]">Bienvenue sur Sogebank Online</p>
         <span>Inscrivez-vous facilement pour épargner, recevoir et envoyer de l'argent en utilisant simplement votre navigateur.</span>
@@ -21,16 +22,25 @@
             <label for="email" class="text-[#333333] text-[14px]">Email</label>
             <input type="email" name="email" id="email" required
                    class="border rounded-[8px] py-1 px-3 outline-none ">
+            @error('email')
+            <p class="text-[12px] text-red-500">{{$message}}</p>
+            @enderror
         </div>
         <div class="flex flex-col gap-2">
             <label for="password" class="text-[#333333] text-[14px]">Mot de passe</label>
             <input type="password" name="password" id="password" required
                    class="border rounded-[8px] py-1 px-3 outline-none ">
+            @error('password')
+            <p class="text-[12px] text-red-500">{{$message}}</p>
+            @enderror
         </div>
         <div class="flex flex-col gap-2">
             <label for="password_confirmation" class="text-[#333333] text-[14px]">Confirmez le mot de passe</label>
             <input type="password" name="password_confirmation" id="password_confirmation" required
                    class="border rounded-[8px] py-1 px-3 outline-none ">
+            @error('password_confirmation')
+            <p class="text-[12px] text-red-500">{{$message}}</p>
+            @enderror
         </div>
         <div class="w-full flex flex-col gap-2  items-center mt-6">
             <button
@@ -42,6 +52,13 @@
             <p class="text-[14px] text-center text-[#333333] max-w-[380px]">En cliquant sur « S'inscrire », vous acceptez les Conditions d'utilisation et la Politique de confidentialité.</p>
 
         </div>
+{{--        @if($errors -> any())--}}
+{{--            <ul class="px-4 py-2 bg-red-100">--}}
+{{--                @foreach($errors -> all() as $error)--}}
+{{--                    <li class="my-2 test-red-500">{{$error}}</li>--}}
+{{--                @endforeach--}}
+{{--            </ul>--}}
+{{--        @endif--}}
     </form>
 
 </x-auth-layout>
