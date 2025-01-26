@@ -92,7 +92,7 @@ git commit -m "✨ Ajout : description de votre modification"
 ```
 5. **Poussez vos modifications vers votre fork**
 ```bash
-git push origin nom-de-votre-branche
+git push -u origin nom-de-votre-branche
 ```
 6. **Créez une Pull Request**
 - Rendez-vous sur le dépôt d’origine.
