@@ -99,10 +99,14 @@
                class="w-[60px] h-[60px] rounded-full bg-[#F5F7FA] hidden lg:flex items-center justify-center font-semibold text-[#718EBF]">
                 <img src="{{'assets/icons/settings2.svg'}}" alt="settings icon">
             </a>
-            <a href="/account"
-               class="w-[60px] h-[60px] rounded-full bg-[#F5F7FA] flex items-center justify-center text-[28px] font-semibold text-primary-2">
-                JD
-            </a>
+
+            @auth
+                <a href="/account"
+                   class="w-[60px] h-[60px] rounded-full bg-[#F5F7FA] flex items-center justify-center text-[28px] font-semibold text-primary-2">
+                    JD
+                </a>
+            @endauth
+            <p>{{Auth::user()->first_name}}</p>
         </div>
     </div>
     <nav class="w-[250px] overflow-hidden lg:hidden mobile-nav max-w-[250px] bg-white h-full absolute -translate-x-full transition-all duration-300 flex flex-col gap-10 py-6 border-r">
