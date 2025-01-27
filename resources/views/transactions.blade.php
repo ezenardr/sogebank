@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'Transactions - Sogebanking')
+    @section('pageTitle', 'Transations')
     {{-- partie superieure (cartes,graph depenses) --}}
     <div class="flex flex-col lg:grid grid-cols-3 gap-10">
         <div class="col-span-2">
@@ -209,11 +211,11 @@
                 <table class="min-w-full border-collapse">
                     <thead class="">
                         <tr class="text-primary-3 text-[16px] font-medium">
-            
+
                             <th class=" p-5 text-left ">Description</th>
                             <th class=" p-5 text-left">Transaction ID</th>
                             <th class=" p-5 text-left">Type</th>
-                            <th class=" p-5 text-left">Card</th> 
+                            <th class=" p-5 text-left">Card</th>
                             <th class=" p-5 text-left">Date</th>
                             <th class=" p-5 text-left">Amount</th>
                             <th class=" p-5 text-left">Receipt</th>
@@ -259,7 +261,7 @@
                                         <span>Download</span>
                                     </div>
                                 </a>
-                            </td> 
+                            </td>
                         </tr>
                         <tr class="h-[65px]">
                             <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -299,7 +301,7 @@
                                         <span>Download</span>
                                     </div>
                                 </a>
-                            </td> 
+                            </td>
                         </tr>
 
                         <tr class="h-[65px]">
@@ -340,7 +342,7 @@
                                         <span>Download</span>
                                     </div>
                                 </a>
-                            </td>  
+                            </td>
                         </tr>
                         <tr class="h-[65px]">
                             <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -380,7 +382,7 @@
                                         <span>Download</span>
                                     </div>
                                 </a>
-                            </td>  
+                            </td>
                         </tr>
                         <tr class="h-[65px]">
                             <td class=" py-2 px-5 text-[16px] text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -420,7 +422,7 @@
                                         <span>Download</span>
                                     </div>
                                 </a>
-                            </td>  
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -429,7 +431,7 @@
         {{-- partie tab recent mobile --}}
         <div class="rounded-[25px] py-2 bg-white mt-8 lg:hidden md:hiden">
             <table class="min-w-full border-collapse">
-              
+
                 <tbody>
                     <tr class="h-[65px]">
                         <td class=" py-2 px-5  text-primary-2 font-normal ">
@@ -439,16 +441,16 @@
                                     <span class="text-[13px]">Spotify Subscription</span>
                                     <span class="text-[13px]">28 Jan, 10.30 AM</span>
                                 </div>
-                                
+
                             </div>
                         </td>
-                    
+
                         <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
                             <div>
                                 <span class="text-[#FE5C73]">-$2,500</span>
                             </div>
                         </td>
-                    
+
                     </tr>
                     <tr class="h-[65px]">
                         <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -458,7 +460,7 @@
                                     <span class="text-[13px]">Freepik Sales</span>
                                     <span class="text-[13px]">25 Jan, 10.30 AM</span>
                                 </div>
-                                
+
                             </div>
                         </td>
                         <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
@@ -466,7 +468,7 @@
                                 <span class="text-[#16DBAA]">+$750</span>
                             </div>
                         </td>
-              
+
                     </tr>
 
                     <tr class="h-[65px]">
@@ -477,17 +479,17 @@
                                     <span class="text-[13px]">Mobile Service</span>
                                     <span class="text-[13px]">17 Jan, 8.17 AM</span>
                                 </div>
-                                
+
                             </div>
                         </td>
-                     
-                     
+
+
                         <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
                             <div>
                                 <span class="text-[#FE5C73]">-$2,500</span>
                             </div>
                         </td>
-                    
+
                     </tr>
                     <tr class="h-[65px]">
                         <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -497,16 +499,16 @@
                                     <span class="text-[13px]">Mobile Service</span>
                                     <span class="text-[13px]">15 Jan, 9.30 PM</span>
                                 </div>
-                                
+
                             </div>
                         </td>
-                   
+
                         <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
                             <div>
                                 <span class="text-[#FE5C73]">-$2,500</span>
                             </div>
                         </td>
-                     
+
                     </tr>
                     <tr class="h-[65px]">
                         <td class=" py-2 px-5  text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -516,16 +518,16 @@
                                     <span class="text-[13px]">Mobile Service</span>
                                     <span class="text-[13px]">2 Jan, 10.30 AM</span>
                                 </div>
-                                
+
                             </div>
                         </td>
-                 
+
                         <td class=" py-2 px-5 text-[16px] text-primary-2 font-medium border-t border-[#F2F4F7]">
                             <div>
                                 <span class="text-[#16DBAA]">+$840</span>
                             </div>
                         </td>
-                  
+
                     </tr>
                 </tbody>
             </table>

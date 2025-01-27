@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'Compte - Sogebanking')
+    @section('pageTitle', 'Compte')
     <div class="container mx-auto p-4 overflow-scroll h-dvh">
         <!-- first part -->
         <div class="flex gap-4 md:gap-0 justify-between flex-wrap">
@@ -326,7 +328,7 @@
 
                 <div class="mt-3 p-1 bg-white rounded-[25px] h-[360px] overflow-y-scroll">
                     <table class="w-[100%]">
-                        
+
                         <tr>
                             <td class="px-4 py-2">
                                 <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#DCFAF8] ">

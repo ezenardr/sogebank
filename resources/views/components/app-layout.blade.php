@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sogebank</title>
+    <title>@yield('title', 'Sogebanking')</title>
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -107,7 +107,7 @@
             <img src="{{'assets/icons/menu.svg'}}" class="btn-menu-open w-[24px]" alt="menu icon">
             <img src="{{'assets/icons/close.svg'}}" class="btn-menu-close hidden" alt="close icon">
         </div>
-        <p class="text-primary-2 font-semibold text-[28px]">Aperçu</p>
+        <p class="text-primary-2 font-semibold text-[28px]">@yield('pageTitle', 'Sogebanking')</p>
         <div class="flex items-center  gap-10">
             <div class="bg-[#F5F7FA] p-4 hidden lg:flex gap-3 rounded-full">
                 <img src="{{'assets/icons/search.svg'}}" alt="search icon">

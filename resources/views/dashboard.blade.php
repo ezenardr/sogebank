@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'Dashboard')
+    @section('pageTitle', 'Dashboard')
     <div class="flex flex-col lg:grid grid-cols-3 gap-8">
         <div class="col-span-2 flex flex-col gap-4 bg-gradient-to-r from-[#2754C8] to-[#110F72]  p-4 lg:p-10 rounded-[32px]">
             <div>
