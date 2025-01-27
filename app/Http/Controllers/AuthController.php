@@ -27,7 +27,7 @@ class AuthController extends Controller
     public function login(Request $request): RedirectResponse{
         $validated = $request->validate([
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string'
+            'password' => 'required|string|min:8'
         ]);
         if(Auth::attempt($validated)){
             $request->session()->regenerate();

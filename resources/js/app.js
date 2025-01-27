@@ -16,3 +16,17 @@ btnCloseEl.addEventListener("click", function() {
     navEl.classList.add('-translate-x-full')
     navEl.classList.remove('translate-x-0')
 })
+
+// modal
+const triggerModal = document.querySelector(".trigger-top-modal")
+const modalEl = document.querySelector(".top-modal")
+
+triggerModal.addEventListener("click", function() {
+    if(modalEl.classList.contains('hidden')){
+        modalEl.classList.remove('hidden')
+        modalEl.classList.add('flex')
+    }else {
+        modalEl.classList.remove('flex')
+        modalEl.classList.add('hidden')
+    }
+})
