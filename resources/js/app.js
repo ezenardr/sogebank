@@ -30,3 +30,46 @@ triggerModal.addEventListener("click", function() {
         modalEl.classList.add('hidden')
     }
 })
+
+//send action
+const btnSogebank = document.getElementById("sogebankUser");
+const pageSogebank = document.getElementById("sogebankUserPage");
+const btnOtherBanks = document.getElementById("otherBanks");
+const pageOtherBanks = document.getElementById("otherBanksPage");
+const btnConfirm = document.getElementById("transacConfirm");
+const pageConfirm = document.getElementById("transacConfirmPage");
+
+btnOtherBanks.addEventListener("click", function() {
+    pageConfirm.classList.add('hidden')
+    pageSogebank.classList.add('hidden')
+    pageOtherBanks.classList.remove('hidden')
+})
+
+btnSogebank.addEventListener("click", function(){
+    pageConfirm.classList.add('hidden')
+    pageSogebank.classList.remove('hidden')
+    pageOtherBanks.classList.add('hidden')
+})
+
+btnConfirm.addEventListener("click", function() {
+    pageConfirm.classList.remove('hidden')
+    pageSogebank.classList.add('hidden')
+    pageOtherBanks.classList.add('hidden')
+})
+
+//send - popup
+const popup = document.getElementById('popup')
+const openBtn = document.getElementById('open-btn')
+const closeBtn = document.getElementById('close-btn')
+
+openBtn.addEventListener('click', function() {
+    popup.classList.remove('hidden')
+    popup.classList.add('flex')
+});
+
+closeBtn.addEventListener('click', function() {
+    popup.classList.add('hidden')
+    pageConfirm.classList.add('hidden')
+    pageSogebank.classList.remove('hidden')
+    pageOtherBanks.classList.add('hidden')
+});

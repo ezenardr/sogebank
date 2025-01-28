@@ -15,6 +15,12 @@ Route::get('/', function () {
 Route::get('/transactions', function () {
     return view('transactions');
 });
+Route::get('/send', function () {
+    return view('send');
+});
+Route::get('/otherBanks', function () {
+    return view('otherBanks');
+});
 Route::get('/account', function () {
     return view('account');
 });
