@@ -73,7 +73,7 @@
         </li>
         <li>
             <a href="/account"
-               class=" text-[18px] py-2 font-medium hover:text-primary-3 transition-all border-l-[6px] border-transparent duration-300 flex items-center {{Request::is('account') ? "text-primary-3  border-primary-3" : "text-[#b1b1b1]"}}">
+               class=" text-[18px] py-2 font-medium hover:text-primary-3 transition-all border-l-[6px] border-transparent duration-300 flex items-center {{(Request::is('account') | Request::is('account/new-account') | Request::is('account-details/*')) ? "text-primary-3  border-primary-3" : "text-[#b1b1b1]"}}">
                 <svg width="25" height="25" viewBox="0 0 25 25" class="mr-5 ml-8" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_78_414)">
@@ -113,18 +113,25 @@
     {{--Top bar--}}
     <div class="bg-white py-4 px-4 flex items-center justify-between">
         <div class="lg:hidden cursor-pointer" id="nav-menu-open">
-            <img src="{{'assets/icons/menu.svg'}}" class="btn-menu-open w-[24px]" alt="menu icon">
-            <img src="{{'assets/icons/close.svg'}}" class="btn-menu-close hidden" alt="close icon">
+            <img src="{{'/assets/icons/menu.svg'}}" class="btn-menu-open w-[24px]" alt="menu icon">
+            <img src="{{'/assets/icons/close.svg'}}" class="btn-menu-close hidden" alt="close icon">
         </div>
-        <p class="text-primary-2 font-semibold text-[28px]">@yield('pageTitle', 'Sogebanking')</p>
+        <div class="flex items-center justify-center gap-4">
+            <a href="{{url()->previous()}}" class="{{(Request::is('/') ) ? "hidden" :"" }} hidden lg:block">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7283 1.66424C11.9138 1.86886 11.8982 2.18506 11.6936 2.3705L5.68377 7.81691C5.45953 8.02012 5.46581 8.37439 5.6971 8.56955L11.6803 13.6179C11.8913 13.7959 11.9181 14.1114 11.74 14.3224C11.5619 14.5335 11.2465 14.5602 11.0354 14.3821L5.05223 9.33384C4.35835 8.74838 4.33954 7.68557 5.01225 7.07592L11.0221 1.62951C11.2267 1.44408 11.5429 1.45963 11.7283 1.66424Z" fill="#333333"/>
+            </svg>
+            </a>
+            <p class="text-primary-2 font-semibold text-[28px]">@yield('pageTitle', 'Sogebanking')</p>
+        </div>
         <div class="flex items-center  gap-10">
             <div class="bg-[#F5F7FA] p-4 hidden lg:flex gap-3 rounded-full">
-                <img src="{{'assets/icons/search.svg'}}" alt="search icon">
+                <img src="{{'/assets/icons/search.svg'}}" alt="search icon">
                 <p class="text-[#718EBF]">Recherchez quelques chose...</p>
             </div>
             <a href="/settings"
                class="w-[60px] h-[60px] rounded-full bg-[#F5F7FA] hidden lg:flex items-center justify-center font-semibold text-[#718EBF]">
-                <img src="{{'assets/icons/settings2.svg'}}" alt="settings icon">
+                <img src="{{'/assets/icons/settings2.svg'}}" alt="settings icon">
             </a>
             @auth
                 <?php
@@ -226,8 +233,17 @@
                     Transactions</a>
             </li>
             <li>
+                <a href="/send-money"
+                   class=" text-[18px] py-2 font-medium hover:text-primary-3 transition-all border-l-[6px] border-transparent duration-300 flex items-center {{Request::is('send-money') ? "text-primary-3  border-primary-3" : "text-[#b1b1b1]"}}">
+                    <svg width="35" height="35" viewBox="0 0 25 25" class=" ml-8 mr-3" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.53981 2.02735L7.31045 2.66462L6.53981 2.02735ZM9.62239 2.02735L10.393 1.39009L9.62239 2.02735ZM1.80432 7.75399L2.57496 8.39126L2.57496 8.39126L1.80432 7.75399ZM14.3579 7.75399L13.5872 8.39125L13.5872 8.39125L14.3579 7.75399ZM7.31045 2.66462C7.71039 2.18097 8.45181 2.18097 8.85174 2.66461L10.393 1.39009C9.19321 -0.0608583 6.96898 -0.0608533 5.76916 1.39009L7.31045 2.66462ZM2.57496 8.39126L7.31045 2.66462L5.76916 1.39009L1.03367 7.11673L2.57496 8.39126ZM3.34561 10.0285C2.49954 10.0285 2.0358 9.04327 2.57496 8.39126L1.03367 7.11673C-0.583827 9.07277 0.807425 12.0285 3.34561 12.0285V10.0285ZM5.738 15.0879V12.4209H3.738V15.0879H5.738ZM9.42419 16.0879H6.73801V18.0879H9.42419V16.0879ZM10.4242 12.4209V15.0879H12.4242V12.4209H10.4242ZM13.5872 8.39125C14.1264 9.04327 13.6626 10.0285 12.8166 10.0285V12.0285C15.3548 12.0285 16.746 9.07276 15.1285 7.11672L13.5872 8.39125ZM8.85174 2.66461L13.5872 8.39125L15.1285 7.11672L10.393 1.39009L8.85174 2.66461ZM12.4242 12.4209C12.4242 12.2042 12.5999 12.0285 12.8166 12.0285V10.0285C11.4953 10.0285 10.4242 11.0996 10.4242 12.4209H12.4242ZM9.42419 18.0879C11.081 18.0879 12.4242 16.7447 12.4242 15.0879H10.4242C10.4242 15.6402 9.97648 16.0879 9.42419 16.0879V18.0879ZM3.738 15.0879C3.738 16.7447 5.08115 18.0879 6.73801 18.0879V16.0879C6.18572 16.0879 5.738 15.6402 5.738 15.0879H3.738ZM3.34561 12.0285C3.56232 12.0285 3.738 12.2042 3.738 12.4209H5.738C5.738 11.0996 4.66689 10.0285 3.34561 10.0285V12.0285Z" fill="currentColor"/>
+                    </svg>
+                    Envoyer</a>
+            </li>
+            <li>
                 <a href="/account"
-                   class=" text-[18px] py-2 font-medium hover:text-primary-3 transition-all border-l-[6px] border-transparent duration-300 flex items-center {{Request::is('account') ? "text-primary-3  border-primary-3" : "text-[#b1b1b1]"}}">
+                   class=" text-[18px] py-2 font-medium hover:text-primary-3 transition-all border-l-[6px] border-transparent duration-300 flex items-center {{(Request::is('account') | Request::is('account/new-account') | Request::is('account-details/*')) ? "text-primary-3  border-primary-3" : "text-[#b1b1b1]"}}">
                     <svg width="25" height="25" viewBox="0 0 25 25" class="mr-5 ml-8" fill="currentColor"
                          xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_78_414)">
