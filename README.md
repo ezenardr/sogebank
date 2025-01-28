@@ -54,7 +54,20 @@ php artisan key:generate
 composer install
 npm install
 ```
-3. **Démarrer le serveur de développement :**
+4. **Configurer la base de donnée dans votre .env :**
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sogebank
+```
+
+4. **Lancer la migration :**
+```bash
+php artisan migrate
+```
+
+5. **Démarrer le serveur de développement :**
 ```bash
     php artisan serve
 ```

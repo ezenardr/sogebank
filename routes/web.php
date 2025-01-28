@@ -9,21 +9,26 @@ Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return view('dashboard');
-}) -> middleware(['auth'])->name('dashboard');
-Route::get('/transactions', function () {
-    return view('transactions');
-});
-Route::get('/send', function () {
-    return view('send');
-});
-Route::get('/otherBanks', function () {
-    return view('otherBanks');
-});
-Route::get('/account', function () {
-    return view('account');
-});
-Route::get('/settings', function () {
-    return view('settings');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/transactions', function () {
+        return view('transactions');
+    });
+    Route::get('/send-money', function () {
+        return view('send-money');
+    });
+    Route::get('/account', function () {
+        return view('account');
+    });
+    Route::get('/account-details/{account_id?}', function (string $account_id) {
+        return view('account-details', ['account_id' => $account_id]);
+    });
+    Route::get('/account/new-account', function () {
+        return view('new-account');
+    });
+    Route::get('/settings', function () {
+        return view('settings');
+    });
 });
