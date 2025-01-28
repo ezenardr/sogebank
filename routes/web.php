@@ -29,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/account/new-account', function () {
         return view('new-account');
     });
+    Route::get('/beneficiary', function () {
+        return view('beneficiary');
+    });
     Route::get('/settings', function () {
         return view('settings');
     });

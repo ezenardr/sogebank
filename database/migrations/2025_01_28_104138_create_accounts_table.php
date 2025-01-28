@@ -19,8 +19,8 @@ return new class extends Migration
             $table -> decimal('balance', 15, 2) -> nullable()->default(0);
             $table -> enum('currency', ['USD', 'HTG']) -> default('HTG');
             $table -> enum('status', ['active', 'inactive', 'closed']) -> default('active');
+            $table -> timestamp('closed_at') -> nullable();
             $table->timestamps();
-            $table -> timestamps('closed_at') -> nullable();
         });
     }
 
