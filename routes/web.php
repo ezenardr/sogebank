@@ -16,7 +16,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/transactions', function () {
         return view('transactions');
     });
-
     Route::get('/send-money', function () {
         return view('send-money');
     });
@@ -36,4 +35,3 @@ Route::middleware(['auth'])->group(function () {
         return view('settings');
     });
 });
-
