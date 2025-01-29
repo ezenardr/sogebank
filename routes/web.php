@@ -19,18 +19,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/send-money', function () {
         return view('send-money');
     });
-    Route::get('/account', function () {
-        return view('account');
+
+    Route::group(['prefix' => '/account'], function () {
+        Route::get('/', function () {
+            return view('account');
+        });
+        Route::get('/new-account', function () {
+            return view('new-account');
+        });
+        Route::get('/account-details/{account_id?}', function (string $account_id) {
+            return view('account-details', ['account_id' => $account_id]);
+        });
     });
-    Route::get('/account-details/{account_id?}', function (string $account_id) {
-        return view('account-details', ['account_id' => $account_id]);
+
+
+    Route::group(['prefix' => '/beneficiary'], function () {
+        Route::get('/', function () {
+            return view('beneficiary');
+        });
+        Route::get('/new-beneficiary', function () {
+            return view('new-beneficiary');
+        });
     });
-    Route::get('/account/new-account', function () {
-        return view('new-account');
-    });
-    Route::get('/beneficiary', function () {
-        return view('beneficiary');
-    });
+
     Route::get('/settings', function () {
         return view('settings');
     });
