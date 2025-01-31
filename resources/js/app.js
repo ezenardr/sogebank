@@ -121,16 +121,27 @@ if(pinInputs != null){
   //Settings
   const btnSettingProfil = document.querySelector(".settingProfilBtn");
   const settingProfil = document.querySelector(".settingProfil");
+  const settingActiveProfil = document.querySelector(".settingActiveProfil");
   const btnSettingPreference = document.querySelector(".settingPreferenceBtn");
   const settingPreference = document.querySelector(".settingPreference");
+  const settingActivePreference = document.querySelector(".settingActivePreference");
   const btnSettingSecurity = document.querySelector(".settingSecurityBtn");
   const settingSecurity = document.querySelector(".settingSecurity");
+  const settingActiveSecurity = document.querySelector(".settingActiveSecurity");
 
 if(btnSettingProfil != null){
     btnSettingProfil.addEventListener("click", function() {
         settingProfil.classList.remove('hidden')
         settingPreference.classList.add('hidden')
         settingSecurity.classList.add('hidden')
+        
+        //active section 
+        btnSettingSecurity.classList.remove('text-primary-3')
+        settingActiveSecurity.classList.remove('scale-x-100')
+        btnSettingPreference.classList.remove('text-primary-3')
+        settingActivePreference.classList.remove('scale-x-100')
+        btnSettingProfil.classList.add('text-primary-3')
+        settingActiveProfil.classList.add('scale-x-100')
     })
 }
 
@@ -138,7 +149,16 @@ if(btnSettingPreference != null){
     btnSettingPreference.addEventListener("click", function() {
         settingProfil.classList.add('hidden')
         settingPreference.classList.remove('hidden')
+        settingPreference.classList.add('flex')
         settingSecurity.classList.add('hidden')
+
+        //active section
+        btnSettingSecurity.classList.remove('text-primary-3')
+        settingActiveSecurity.classList.remove('scale-x-100')
+        btnSettingPreference.classList.add('text-primary-3')
+        settingActivePreference.classList.add('scale-x-100')
+        btnSettingProfil.classList.remove('text-primary-3')
+        settingActiveProfil.classList.remove('scale-x-100')
     })
 }
 
@@ -147,5 +167,14 @@ if(btnSettingSecurity != null){
         settingProfil.classList.add('hidden')
         settingPreference.classList.add('hidden')
         settingSecurity.classList.remove('hidden')
+        settingSecurity.classList.add('flex')
+
+        //active section
+        btnSettingSecurity.classList.add('text-primary-3')
+        settingActiveSecurity.classList.add('scale-x-100')
+        btnSettingPreference.classList.remove('text-primary-3')
+        settingActivePreference.classList.remove('scale-x-100')
+        btnSettingProfil.classList.remove('text-primary-3')
+        settingActiveProfil.classList.remove('scale-x-100')
     })
 }

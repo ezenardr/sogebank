@@ -10,28 +10,28 @@
                 <ul class="w-full flex justify-between">
                     <li class="relative group">
                         <i
-                            class="settingProfilBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-100 flex items-center {{Request::is('account') ? "text-primary-3  border-primary-3" : "text-[#718EBF]"}}">
-                            Profil
+                            class="settingProfilBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-100 flex items-center text-[#718EBF]">
+                            Profil  
                             <div
-                                class="absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
+                                class="settingActiveProfil absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
                             </div>
                         </i>
                     </li>
                     <li class="relative group">
                         <i
-                            class="settingPreferenceBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-100 flex items-center {{Request::is('account') ? "text-primary-3  border-primary-3" : "text-[#718EBF]"}}">
+                            class="settingPreferenceBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-100 flex items-center text-[#718EBF]">
                             Préférences
                             <div
-                                class="absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
+                                class="settingActivePreference absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
                             </div>
                         </i>
                     </li>
                     <li class="relative group">
                         <i
-                            class="settingSecurityBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-300 flex items-center {{Request::is('account') ? "text-primary-3  border-primary-3" : "text-[#718EBF]"}}">
+                            class="settingSecurityBtn cursor-pointer not-italic text-[16px] py-[14px] px-[11px] font-medium hover:text-primary-3 transition-all duration-300 flex items-center text-[#718EBF]">
                             Sécurité
                             <div
-                                class="absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
+                                class="settingActiveSecurity absolute bottom-0 left-0 right-0 h-1 bg-primary-3 rounded-t-xl transform scale-x-0 group-hover:scale-x-100 transition-all duration-300">
                             </div>
                         </i>
                     </li>
@@ -179,7 +179,7 @@
         </div>
 
         {{-- Setting Preferences --}}
-        <form method="POST" action="/settings/preferences" class="hidden settingPreference flex flex-col h-min">
+        <form method="POST" action="/settings/preferences" class="hidden settingPreference flex-col h-min">
             @csrf
             <div class="flex justify-around md:gap-4 md:flex-nowrap flex-wrap w-full mt-6">
                 {{-- First --}}
@@ -191,8 +191,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="two_factor_enabled" type="checkbox"
                                        @checked(old('two_factor_enabled', $user[0]->two_factor_enabled)) class="sr-only peer">
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span
                                 class="text-gray-700 text-left flex-grow">Authentification à deux facteurs (2FA)</span>
@@ -202,8 +202,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="confirm_transaction" type="checkbox"
                                        class="sr-only peer" @checked(old('confirm_transaction', $user[0]->confirm_transaction))>
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span class="text-gray-700 text-left flex-grow">Demander une confirmation pour chaque transaction</span>
                         </div>
@@ -212,8 +212,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="amount_alert" type="checkbox"
                                        class="sr-only peer" @checked(old('amount_alert', $user[0]->amount_alert))>
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span class="text-gray-700 text-left flex-grow">Alerte en cas de transaction supérieure à un certain montant</span>
                         </div>
@@ -231,8 +231,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="email_notifications" type="checkbox"
                                        class="sr-only peer" @checked(old('email_notifications', $user[0]->email_notifications))>
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span class="text-gray-700 text-left flex-grow">Recevoir des notifications par e-mail</span>
                         </div>
@@ -242,8 +242,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="card_payment" type="checkbox"
                                        class="sr-only peer" @checked(old('card_payment', $user[0]->card_payment))>
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span class="text-gray-700 text-left flex-grow">Notification lors d’un paiement par carte bancaire</span>
                         </div>
@@ -253,8 +253,8 @@
                             <label class="relative inline-flex items-center cursor-pointer me-4">
                                 <input name="new_login" type="checkbox"
                                        class="sr-only peer" @checked(old('new_login', $user[0]->new_login))>
-                                <div
-                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></div>
+                                <span
+                                    class="w-11 h-6 bg-[#DFEAF2] rounded-full peer  peer-checked:bg-[#16DBCC] peer-checked:before:translate-x-6 peer-checked:before:bg-white before:content-[''] before:absolute before:top-0.5 before:left-[2px] before:bg-white before:border-gray-300 before:border before:rounded-full before:h-5 before:w-5 before:transition-all"></span>
                             </label>
                             <span
                                 class="text-gray-700 text-left flex-grow">Alerte en cas de connexion à partir d’un nouvel appareil</span>
@@ -275,7 +275,7 @@
         </form>
 
         {{-- Setting Security --}}
-        <form method="POST" action="/settings/security" class="hidden settingSecurity flex flex-col h-min">
+        <form method="POST" action="/settings/security" class="hidden settingSecurity flex-col h-min">
             @csrf
             <div class="flex justify-around md:gap-4 md:flex-nowrap flex-wrap w-full mt-6">
                 {{-- First --}}
