@@ -32,44 +32,120 @@ triggerModal.addEventListener("click", function() {
 })
 
 //send action
-const btnSogebank = document.getElementById("sogebankUser");
-const pageSogebank = document.getElementById("sogebankUserPage");
-const btnOtherBanks = document.getElementById("otherBanks");
-const pageOtherBanks = document.getElementById("otherBanksPage");
-const btnConfirm = document.getElementById("transacConfirm");
-const pageConfirm = document.getElementById("transacConfirmPage");
+const btnSogebank = document.querySelector(".sogebankUser");
+const pageSogebank = document.querySelector(".sogebankUserPage");
+const btnOtherBanks = document.querySelector(".otherBanks");
+const pageOtherBanks = document.querySelector(".otherBanksPage");
+const btnConfirm = document.querySelector(".transacConfirm");
+const pageConfirm = document.querySelector(".transacConfirmPage");
 
-btnOtherBanks.addEventListener("click", function() {
-    pageConfirm.classList.add('hidden')
-    pageSogebank.classList.add('hidden')
-    pageOtherBanks.classList.remove('hidden')
-})
+if(btnOtherBanks != null){
+    btnOtherBanks.addEventListener("click", function() {
+        pageConfirm.classList.add('hidden')
+        pageSogebank.classList.add('hidden')
+        pageOtherBanks.classList.remove('hidden')
+    })
+}
 
-btnSogebank.addEventListener("click", function(){
-    pageConfirm.classList.add('hidden')
-    pageSogebank.classList.remove('hidden')
-    pageOtherBanks.classList.add('hidden')
-})
+if(btnSogebank != null){
+    btnSogebank.addEventListener("click", function(){
+        pageConfirm.classList.add('hidden')
+        pageSogebank.classList.remove('hidden')
+        pageOtherBanks.classList.add('hidden')
+    })
+}
 
-btnConfirm.addEventListener("click", function() {
-    pageConfirm.classList.remove('hidden')
-    pageSogebank.classList.add('hidden')
-    pageOtherBanks.classList.add('hidden')
-})
+if(btnConfirm){
+    btnConfirm.addEventListener("click", function() {
+        pageConfirm.classList.remove('hidden')
+        pageSogebank.classList.add('hidden')
+        pageOtherBanks.classList.add('hidden')
+    })
+}
 
 //send - popup
-const popup = document.getElementById('popup')
-const openBtn = document.getElementById('open-btn')
-const closeBtn = document.getElementById('close-btn')
+const popup = document.querySelector('.popup')
+const openBtn = document.querySelector('.open-btn')
+const closeBtn = document.querySelector('.close-btn')
+const pinInputs = document.querySelectorAll('.pin-input');
 
-openBtn.addEventListener('click', function() {
-    popup.classList.remove('hidden')
-    popup.classList.add('flex')
-});
+if(openBtn != null){
+    openBtn.addEventListener('click', function() {
+        popup.classList.remove('hidden')
+        popup.classList.add('flex')
+    });
+}
 
-closeBtn.addEventListener('click', function() {
-    popup.classList.add('hidden')
-    pageConfirm.classList.add('hidden')
-    pageSogebank.classList.remove('hidden')
-    pageOtherBanks.classList.add('hidden')
-});
+if(closeBtn != null){
+    closeBtn.addEventListener('click', function() {
+        popup.classList.add('hidden')
+        pageConfirm.classList.add('hidden')
+        pageSogebank.classList.remove('hidden')
+        pageOtherBanks.classList.add('hidden')
+    });
+}
+
+//avancement automatique du curseur - retour avec backspace
+if(pinInputs != null){
+    pinInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          if (e.target.value.length === 1 && index < pinInputs.length - 1) {
+            pinInputs[index + 1].focus();
+          }
+        });
+    
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            pinInputs[index - 1].focus();
+          }
+        });
+      });
+}
+
+if(pinInputs != null){
+    pinInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          if (e.target.value.length === 1 && index < pinInputs.length - 1) {
+            pinInputs[index + 1].focus();
+          }
+        });
+    
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            pinInputs[index - 1].focus();
+          }
+        });
+      });
+}
+
+  //Settings
+  const btnSettingProfil = document.querySelector(".settingProfilBtn");
+  const settingProfil = document.querySelector(".settingProfil");
+  const btnSettingPreference = document.querySelector(".settingPreferenceBtn");
+  const settingPreference = document.querySelector(".settingPreference");
+  const btnSettingSecurity = document.querySelector(".settingSecurityBtn");
+  const settingSecurity = document.querySelector(".settingSecurity");
+
+if(btnSettingProfil != null){
+    btnSettingProfil.addEventListener("click", function() {
+        settingProfil.classList.remove('hidden')
+        settingPreference.classList.add('hidden')
+        settingSecurity.classList.add('hidden')
+    })
+}
+
+if(btnSettingPreference != null){
+    btnSettingPreference.addEventListener("click", function() {
+        settingProfil.classList.add('hidden')
+        settingPreference.classList.remove('hidden')
+        settingSecurity.classList.add('hidden')
+    })
+}
+
+if(btnSettingSecurity != null){
+    btnSettingSecurity.addEventListener("click", function() {
+        settingProfil.classList.add('hidden')
+        settingPreference.classList.add('hidden')
+        settingSecurity.classList.remove('hidden')
+    })
+}

@@ -5,7 +5,7 @@
 
     <form action="" method="post">
         <!-- Transfer - sogebank -->
-        <div id="sogebankUserPage" class="container">
+        <div class="sogebankUserPage container">
             <h2 class="md:indent-8 mt-4 font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]">Send
                 money</h2>
             <div class="mx-auto my-0 flex flex-col items-center">
@@ -37,8 +37,7 @@
                     </div>
 
                     <a
-                        id="otherBanks"
-                        class="text-center underline"
+                        class="otherBanks text-center underline"
                         style="color: blue; font-style:italic; cursor:pointer;">Other Banks</a>
 
                     <button
@@ -50,9 +49,9 @@
         </div>
 
         <!-- Transfer - other Banks -->
-        <div id="otherBanksPage" class="hidden container">
+        <div class="hidden otherBanksPage container">
             <h2 class="flex font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]"><img
-                    id="sogebankUser" class="me-4 cursor-pointer" src="{{'assets/icons/return.svg'}}" alt="return icon"><span
+                    class="sogebankUser me-4 cursor-pointer" src="{{'assets/icons/return.svg'}}" alt="return icon"><span
                     style="margin-right:12px; color: gray;"> send money . </span> other banks</h2>
             <div class="mx-auto my-0 flex flex-col items-center">
                 <div style="width: 380px; margin:3rem 0;" class="flex flex-col py-4">
@@ -83,9 +82,8 @@
                     </div>
 
                     <button
-                        id="transacConfirm"
                         type="button"
-                        class="my-3 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
+                        class="transacConfirm my-3 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
                         Confirm
                     </button>
                 </div>
@@ -93,37 +91,37 @@
         </div>
 
         <!-- Confirm - Details -->
-        <div id="transacConfirmPage" class="hidden container">
-            <h2 class="flex font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]"><img id=""
-                                                                                                         class="me-4 cursor-pointer"
-                                                                                                         src="{{'assets/icons/return.svg'}}"
-                                                                                                         alt="return icon"><span
+        <div class="hidden transacConfirmPage container">
+            <h2 class="flex font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]"><img 
+                    class="me-4 cursor-pointer"
+                    src="{{'assets/icons/return.svg'}}"
+                    alt="return icon"><span
                     style="margin-right:12px; color: gray;"> send money . </span> other banks</h2>
             <div class="mx-auto my-0 flex flex-col items-center">
 
                 <!-- Popup Background -->
-                <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center">
+                <div class="hidden popup fixed inset-0 bg-black bg-opacity-50 items-center justify-center">
                     <!-- Popup Content -->
                     <div
                         class="bg-white rounded-2xl shadow-lg lg:w-[40%] md:w-[60%] w-[80%] md:h-[500px] p-6 flex flex-col justify-between ">
                         <!-- Header -->
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="text-lg font-semibold text-gray-800">Transaction Pin</h2>
-                            <button type="reset" id="close-btn" class="text-gray-500 hover:text-gray-800">
+                            <button type="reset" class="close-btn text-gray-500 hover:text-gray-800">
                                 &times;
                             </button>
                         </div>
 
                         <!-- PIN Input Fields -->
                         <div class="flex justify-center gap-4 mb-6">
-                            <input type="password" maxlength="1"
-                                   class="w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <input type="password" maxlength="1"
-                                   class="w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <input type="password" maxlength="1"
-                                   class="w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <input type="password" maxlength="1"
-                                   class="w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" maxlength="1"
+                                class="pin-input w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" maxlength="1"
+                                class="pin-input w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" maxlength="1"
+                                class="pin-input w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <input type="text" maxlength="1"
+                                class="pin-input w-12 h-12 text-center text-lg border-2 border-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
                         </div>
 
                         <!-- Confirm Button -->
@@ -163,8 +161,8 @@
                         </tr>
                     </table>
 
-                    <button id="open-btn" type="button"
-                            class="my-3 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
+                    <button type="button"
+                        class="open-btn my-3 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer">
                         Send Money
                     </button>
                 </div>
