@@ -45,9 +45,11 @@ class AuthController extends Controller
             'last_name' => 'required|string|max:250',
             'email' => 'required|string|email|max:250|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'phone_number' => 'required|min:8',
         ]);
         $user = new User($validated);
         $user -> save();
+
         Auth::login($user);
         return redirect('/');
     }

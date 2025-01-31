@@ -18,15 +18,28 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number') ->nullable();
+            $table->string('phone_number');
+            $table -> timestamp('date_of_birth') -> nullable();
             $table->timestamp('phone_verified_at') ->nullable();
             $table->string('address') -> nullable();
             $table->string('profile_photo') -> nullable();
             $table -> enum('role', ['admin', 'user', 'superadmin', 'employee']) ->default('user');
-            $table -> boolean('two_factor_enabled') -> default(false);
-            $table -> string('two_factor_secret') -> nullable();
             $table->timestamp('last_login_atmy') -> default(now());
             $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('users_preferences', function (Blueprint $table) {
+            $table->uuid('id')->primary()->unique();
+            $table->uuid('user_id')->index();
+            $table -> boolean('two_factor_enabled') -> default(false);
+            $table -> string('two_factor_secret') -> nullable();
+            $table -> boolean('confirm_transaction') -> default(true);
+            $table -> boolean('amount_alert') -> default(false);
+            $table -> integer('amount_alert_quantity') -> default(1000);
+            $table -> boolean('email_notifications') -> default(true);
+            $table -> boolean('card_payment') -> default(true);
+            $table -> boolean('new_login') -> default(true);
             $table->timestamps();
         });
 
@@ -52,6 +65,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('users_preferences');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

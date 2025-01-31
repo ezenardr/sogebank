@@ -1,6 +1,6 @@
 <x-auth-layout>
     @section('title', "Register - Sogebanking")
-    <div class="pt-20"></div>
+    <div class="pt-32"></div>
     <img src="{{'/assets/images/logo-wide.jpg'}}" width="183" class="pt-8" alt="Logo sogebank wide"/>
     <div class="flex flex-col text-center items-center max-w-[450px] justify-center gap-1">
         <p class="font-medium text-[20px] text-[#333333]">Bienvenue sur Sogebank Online</p>
@@ -25,6 +25,14 @@
             <input type="email" name="email" id="email" required
                    class="border rounded-[8px] py-1 px-3 outline-none ">
             @error('email')
+            <p class="text-[12px] text-red-500">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="flex flex-col gap-2">
+            <label for="phone_number" class="text-[#333333] text-[14px]">Numéro de téléphone</label>
+            <input type="number" name="phone_number" id="phone_number" required
+                   class="border rounded-[8px] py-1 px-3 outline-none ">
+            @error('phone_number')
             <p class="text-[12px] text-red-500">{{$message}}</p>
             @enderror
         </div>

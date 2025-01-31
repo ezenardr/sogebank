@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
@@ -42,7 +43,10 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
-    Route::get('/settings', function () {
-        return view('settings');
+    Route::group(['prefix' => '/settings'], function () {
+        Route::get('/', [SettingsController::class, 'showSettings'])->name('settings');
+        Route::post('/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.updatePreferences');
+        Route::post('/security', [SettingsController::class, 'changePassword'])->name('settings.changePassword');
     });
+
 });
