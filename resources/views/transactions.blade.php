@@ -160,7 +160,7 @@
                         <span class="text-[15px]  text-primary-2 font-normal">Dec</span>
                     </div>
                     {{-- Barre 6 --}}
-                    <div class="flex flex-col gap-2 items-center justify-end">
+            <div class="flex flex-col gap-2 items-center justify-end">
                         <div class="bg-[#EDF0F7]  w-[22px] h-[55%] rounded-lg"></div>
                         <span class="text-[15px]  text-primary-2 font-normal">Jan</span>
                     </div>
