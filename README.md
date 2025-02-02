@@ -62,12 +62,16 @@ DB_PORT=3306
 DB_DATABASE=sogebank
 ```
 
-4. **Lancer la migration :**
+5. **Lancer la migration :**
 ```bash
 php artisan migrate
 ```
+6. **Créer des utilisateur fictifs :**
+```bash
+php artisan db:seed
+```
 
-5. **Démarrer le serveur de développement :**
+7. **Démarrer le serveur de développement :**
 ```bash
     php artisan serve
 ```
