@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->uuid('account_id')->primary();
-            $table -> foreignUuid('id') -> references('id') -> on('users') ->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table -> foreignUuid('user_id') -> references('id') -> on('users') ->onDelete('cascade');
             $table -> string('account_number')->unique();
             $table -> enum('account_type', ['savings', 'checking', 'business']);
-            $table -> decimal('balance', 15, 2) -> nullable()->default(0);
+            $table -> decimal('running_balance', 15, 2) -> nullable()->default(0);
+            $table -> decimal('available_balance', 15, 2) -> nullable()->default(0);
             $table -> enum('currency', ['USD', 'HTG']) -> default('HTG');
             $table -> enum('status', ['active', 'inactive', 'closed']) -> default('active');
             $table -> timestamp('closed_at') -> nullable();

@@ -218,14 +218,6 @@
                         <div
                             class=" w-[130px] h-[130px] rounded-full bg-[#F5F7FA] flex items-center justify-center text-[28px] font-semibold text-primary-2 select-none">
                             {{$initial}}</div>
-
-
-                        {{--                    <img class="border mx-auto my-5 lg:w-[132px] lg:h-[130px] md:w-[110px] md:h-[110px] w-[174px] h-[170px] rounded-[50%]"--}}
-                        {{--                        src="{{'/assets/images/profile-mage.png'}}" alt="profile image" />--}}
-
-                        {{-- Edit pencil file type --}}
-                        {{--                    <img class="relative lg:left-[69%] lg:bottom-[13%] md:left-[64%] md:bottom-[12%] left-[65%] bottom-[30%] md:w-[30px] md:h-[30px] w-[40px] h-[40px]"--}}
-                        {{--                        src="{{'/assets/icons/pencil.svg'}}" alt="pencil edit" />--}}
                     </div>
 
                     {{-- First col --}}

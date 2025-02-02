@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
@@ -22,12 +23,13 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['prefix' => '/account'], function () {
-        Route::get('/', function () {
-            return view('account');
-        });
+        Route::get('/', [AccountController::class, 'showAccount'])->name('show-account');
+
         Route::get('/new-account', function () {
             return view('new-account');
         });
+        Route::post('/new-account', [AccountController::class, 'createAccount'])->name('create-account');
+
         Route::get('/account-details/{account_id?}', function (string $account_id) {
             return view('account-details', ['account_id' => $account_id]);
         });
