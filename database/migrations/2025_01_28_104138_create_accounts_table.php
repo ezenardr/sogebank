@@ -18,7 +18,7 @@ return new class extends Migration
             $table -> enum('account_type', ['savings', 'checking', 'business']);
             $table -> decimal('running_balance', 15, 2) -> nullable()->default(0);
             $table -> decimal('available_balance', 15, 2) -> nullable()->default(0);
-            $table -> enum('currency', ['USD', 'HTG']) -> default('HTG');
+            $table -> enum('currency', ['USD', 'HTG']);
             $table -> enum('status', ['active', 'inactive', 'closed']) -> default('active');
             $table -> timestamp('closed_at') -> nullable();
             $table->timestamps();

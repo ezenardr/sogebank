@@ -30,7 +30,6 @@ class AccountController extends Controller
             'account_number' => $accountNumber,
         ]);
         $accounts = DB::table('accounts')->get()->where('user_id', '=', $user -> id );
-
-        return view('account', ['accounts' => $accounts]);
+        return redirect()->route('show-account', ['accounts' => $accounts]);
     }
 }
