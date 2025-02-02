@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,12 +38,11 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::group(['prefix' => '/beneficiary'], function () {
-        Route::get('/', function () {
-            return view('beneficiary');
-        });
-        Route::get('/new-beneficiary', function () {
-            return view('new-beneficiary');
-        });
+        Route::get('/', [BeneficiaryController::class, 'ShowBeneficiary'])->name('show-beneficiary');
+
+        Route::get('/new-beneficiary', [BeneficiaryController::class, 'NewBeneficiaryView'])->name('new-beneficiary');
+
+        Route::post('/new-beneficiary', [BeneficiaryController::class, 'AddBeneficiary'])->name('add-beneficiary');
     });
 
     Route::group(['prefix' => '/settings'], function () {

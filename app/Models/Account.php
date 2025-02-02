@@ -2,24 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
+    use HasFactory;
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected static function boot(){
+
+    protected static function boot()
+    {
         parent::boot();
 
         static::creating(function ($model) {
-            if(empty($model->id)){
-                $model -> id = (string) \Illuminate\Support\Str::uuid();
+            if (empty($model->id)) {
+                $model->id = (string)\Illuminate\Support\Str::uuid();
             }
         });
     }
-    protected $fillable = ['user_id', 'account_type', 'account_number'];
+
+    protected $fillable = ['user_id', 'account_type', 'account_number', 'running_balance', 'available_balance'];
 
     public static function generateAccountNumber($type)
     {

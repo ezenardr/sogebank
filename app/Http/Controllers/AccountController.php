@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -15,7 +16,7 @@ class AccountController extends Controller
 
         return view('account', ['accounts' => $accounts]);
     }
-    public function createAccount(Request $request){
+    public function createAccount(Request $request) :RedirectResponse{
         $request->validate([
             'account_type' => 'required|in:savings,checking,business',
             'currency' => 'required|in:USD,HTG',
