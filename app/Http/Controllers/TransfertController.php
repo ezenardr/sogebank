@@ -41,7 +41,10 @@ class TransfertController extends Controller
             ]);
         }
         if($fromAccount -> currency == "USD" && $toAccount -> currency == "HTG"){
-            $amount = $amount * 135;
+            $amount = $amount * env('TAUX_DU_JOUR');
+        }
+        if($fromAccount -> currency == "HTG" && $toAccount -> currency == "USD"){
+            $amount = $amount / env('TAUX_DU_JOUR');
         }
         DB::beginTransaction();
 
