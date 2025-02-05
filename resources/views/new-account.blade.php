@@ -13,6 +13,7 @@
                             Devise
                         </label><br>
                         <select name="currency" class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
+                            <option>--Choisir une option--</option>
                             <option value="HTG">Gourdes</option>
                             <option value="USD">Dollard Américain</option>
                         </select>
@@ -24,6 +25,7 @@
                             Type de compte
                         </label><br>
                         <select name="account_type" class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
+                            <option>--Choisir une option--</option>
                             <option value="savings">Epargne</option>
                             <option value="checking">Chèque</option>
                             <option value="business">Compte Business</option>

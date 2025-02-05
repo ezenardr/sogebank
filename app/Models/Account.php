@@ -24,7 +24,7 @@ class Account extends Model
         });
     }
 
-    protected $fillable = ['user_id', 'account_type', 'account_number', 'running_balance', 'available_balance'];
+    protected $fillable = ['user_id', 'account_type', 'account_number','currency', 'running_balance', 'available_balance'];
 
     public static function generateAccountNumber($type)
     {

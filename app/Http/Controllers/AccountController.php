@@ -29,6 +29,7 @@ class AccountController extends Controller
             'user_id' => $user->id,
             'account_type' => $request->account_type,
             'account_number' => $accountNumber,
+            'currency' => $request -> currency
         ]);
         $accounts = DB::table('accounts')->get()->where('user_id', '=', $user -> id );
         return redirect()->route('show-account', ['accounts' => $accounts]);
