@@ -20,7 +20,7 @@ class TransfertController extends Controller
         return view('send-money-to-my-account', ['accounts' => $accounts]);
     }
 
-    public function SendMoneyBetweenMyAccount(Request $request):RedirectResponse{
+    public function SendMoney(Request $request):RedirectResponse{
         $request->validate([
             'account_id' => 'required|min:8',
             'recipient_account_id' => 'required|min:8',
@@ -74,5 +74,18 @@ class TransfertController extends Controller
             ]);
         }
 
+    }
+
+    public function ShowSendMoneyToThirdPartySogebank():View{
+        $user = auth()->user();
+        $beneficiaries = DB::table('beneficiaries')
+            ->where('user_id', '=', $user->id)
+            ->join('users', 'beneficiaries.beneficiary_id', '=', 'users.id')
+            ->get();
+        $accounts = DB::table('accounts')->get()->where('user_id', '=', $user -> id );
+        if($beneficiaries->isEmpty()){
+            return view('add-beneficiary-first');
+        }
+        return view('send-money-to-third-party-sogebank', ['beneficiaries' => $beneficiaries, 'accounts' =>$accounts]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Beneficiary;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +24,7 @@ class BeneficiaryController extends Controller
 
     public function NewBeneficiaryView(): view
     {
-        $users = User::limit(5)->get();
+        $users = User::limit(50)->get();
         return view('new-beneficiary', ['users' => $users]);
     }
 
@@ -43,5 +44,11 @@ class BeneficiaryController extends Controller
 
         return redirect()
                 ->route('show-beneficiary');
+    }
+
+    public function getAccounts($id){
+        $accounts = Account::where('user_id', $id)->get();
+
+        return response()->json($accounts);
     }
 }

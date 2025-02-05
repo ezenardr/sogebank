@@ -26,11 +26,10 @@ Route::middleware(['auth'])->group(function () {
             return view('send-money');
         });
         Route::get('/my-account', [TransfertController::class, 'ShowSendMoneyBetweenMyAccount'])->name('ShowSendMoneyBetweenMyAccount');
-        Route::post('/my-account', [TransfertController::class, 'SendMoneyBetweenMyAccount']);
+        Route::post('/my-account', [TransfertController::class, 'SendMoney']);
 
-        Route::get('/third-party-sogebank', function () {
-            return view('send-money-to-third-party-sogebank');
-        });
+        Route::get('/third-party-sogebank', [TransfertController::class, 'ShowSendMoneyToThirdPartySogebank'])->name('ShowSendMoneyToThirdPartySogebank');
+        Route::post('/third-party-sogebank', [TransfertController::class, 'SendMoney']);
 
 
     });
@@ -55,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/new-beneficiary', [BeneficiaryController::class, 'NewBeneficiaryView'])->name('new-beneficiary');
 
         Route::post('/new-beneficiary', [BeneficiaryController::class, 'AddBeneficiary'])->name('add-beneficiary');
+        Route::get('/{id}/accounts', [BeneficiaryController::class, 'getAccounts']);
     });
 
     Route::group(['prefix' => '/settings'], function () {
