@@ -28,6 +28,7 @@ class TransfertController extends Controller
         ]);
         $fromAccount = Account::find($request->account_id);
         $toAccount = Account::find($request->recipient_account_id);
+        $amount = $request -> amount;
 
         if ($fromAccount->available_balance < $request->amount) {
             throw ValidationException::withMessages([
@@ -39,20 +40,16 @@ class TransfertController extends Controller
                 'same_account ' => 'Transfert Impossible',
             ]);
         }
+        if($fromAccount -> currency == "USD" && $toAccount -> currency == "HTG"){
+            $amount = $amount * 135;
+        }
         DB::beginTransaction();
 
         try {
-//            DB::table('accounts')
-//                ->where('id', '=', $request->account_id)
-//                ->insert(['available_balance' => $fromAccount->available_balance -= $request->amount ]);
-//
-//            DB::table('accounts')
-//                ->where('id', '=', $request->recipient_account_id)
-//                ->insert(['available_balance' => $toAccount->available_balance += $request->amount ]);
             $fromAccount->available_balance -= $request->amount;
             $fromAccount->save();
 
-            $toAccount->available_balance += $request->amount;
+            $toAccount->available_balance += $amount;
             $toAccount->save();
 
             Transaction::create([

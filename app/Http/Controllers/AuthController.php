@@ -43,15 +43,14 @@ class AuthController extends Controller
        $validated = $request->validate([
             'first_name' => 'required|string|max:250',
             'last_name' => 'required|string|max:250',
-            'addresse' => 'required|string',
-            'date_naissance' => 'required|string',
+            'address' => 'required|string',
+            'date_of_birth' => 'required',
             'email' => 'required|string|email|max:250|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'phone_number' => 'required|min:8',
         ]);
         $user = new User($validated);
-        dd($user);
-        $user -> save();
+        $user->save();
 
         Auth::login($user);
         return redirect('/');

@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number');
-            $table -> timestamp('date_of_birth') -> nullable();
+            $table -> date('date_of_birth');
             $table->timestamp('phone_verified_at') ->nullable();
-            $table->string('address') -> nullable();
+            $table->string('address');
             $table->string('profile_photo') -> nullable();
             $table -> enum('role', ['admin', 'user', 'superadmin', 'employee']) ->default('user');
             $table->timestamp('last_login_atmy') -> default(now());

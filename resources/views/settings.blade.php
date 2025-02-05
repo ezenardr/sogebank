@@ -259,15 +259,16 @@
                         <div>
                             <label
                                 class="text-[#232323] font-normal"
-                                for="">
+                                for="date_of_birth">
                                 Date of Birth
                             </label><br>
                             <input
                                 class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]"
                                 type="date"
-                                name="birthday"
-                                id=""
-                                placeholder="25 january 1990">
+                                name="date_of_birth"
+                                id="date_of_birth"
+                                value="{{Auth::user()->date_of_birth}}"
+                                >
                         </div>
 
 
@@ -302,21 +303,8 @@
                                 type="text"
                                 name="address"
                                 id="address"
+                                value="{{Auth::user()->address}}"
                                 placeholder="San Jose, California, USA">
-                        </div>
-
-                        <div>
-                            <label
-                                class="text-[#232323] font-normal"
-                                for="city">
-                                City
-                            </label><br>
-                            <input
-                                class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]"
-                                type="text"
-                                name="city"
-                                id=""
-                                placeholder="San Jose">
                         </div>
 
                     </div>
