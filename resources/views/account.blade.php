@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Compte - Sogebanking')
     @section('pageTitle', 'Compte')
-    <div class="container mx-auto lg:p-4 flex flex-col gap-6 overflow-y-scroll h-dvh items-center w-full">
+    <div class="container mx-auto mb-40 pb-11 lg:p-4 flex flex-col gap-6 overflow-y-scroll h-dvh items-center w-full">
 
         @foreach($accounts as $account)
             <a href="/account/account-details/{{$account->id}}"
@@ -12,7 +12,7 @@
                         @if ($account->account_type == 'checking')
                             Chèque
                         @elseif ($account->account_type == 'savings')
-                            Épargne
+                            Épargne`
                         @else
                             Business
                         @endif

@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TransfertController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
@@ -19,8 +20,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/transactions', function () {
         return view('transactions');
     });
-    Route::get('/send-money', function () {
-        return view('send-money');
+
+    Route::group(['prefix' => '/send-money'], function () {
+        Route::get('/', function () {
+            return view('send-money');
+        });
+        Route::get('/my-account', [TransfertController::class, 'ShowSendMoneyBetweenMyAccount'])->name('ShowSendMoneyBetweenMyAccount');
+        Route::post('/my-account', [TransfertController::class, 'SendMoneyBetweenMyAccount']);
+
+        Route::get('/third-party-sogebank', function () {
+            return view('send-money-to-third-party-sogebank');
+        });
+
+
     });
 
     Route::group(['prefix' => '/account'], function () {
