@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransfertController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
@@ -17,8 +18,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/transactions', function () {
-        return view('transactions');
+
+    Route::group(['prefix' => '/transactions'], function() {
+        Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
+        // Route::get('/income', [TransactionController::class, 'showIncome'])->name('sow-income');
+        // Route::get('/expense', [TransactionController::class, 'showExpense'])->name('sow-expense');
     });
 
     Route::group(['prefix' => '/send-money'], function () {
