@@ -15,6 +15,7 @@ namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperAccount
  * @property string $id
  * @property string $user_id
  * @property string $account_number
@@ -41,16 +42,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereUserId($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperAccount {}
+	class Account extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperBeneficiary
  * @property string $id
  * @property string $user_id
  * @property string $beneficiary_id
@@ -66,16 +66,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Beneficiary whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Beneficiary whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Beneficiary whereUserId($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperBeneficiary {}
+	class Beneficiary extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperTransaction
  * @property int $id
  * @property string $user_id
  * @property string $account_id
@@ -104,16 +103,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Transaction whereTransactionType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Transaction whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Transaction whereUserId($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperTransaction {}
+	class Transaction extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperUser
  * @property string $id
  * @property string $first_name
  * @property string $last_name
@@ -153,16 +151,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperUser {}
+	class User extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperUsersPreferences
  * @property string $id
  * @property string $user_id
  * @property int $two_factor_enabled
@@ -193,9 +190,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsersPreferences whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsersPreferences whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsersPreferences whereUserId($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperUsersPreferences {}
+	class UsersPreferences extends \Eloquent {}
 }
 

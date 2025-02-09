@@ -240,7 +240,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $transaction)
-
                                     <tr class="h-[65px]">
                                         <td
                                             class=" py-2 px-5 text-[12px] text-primary-2 font-normal border-t border-[#F2F4F7]">
@@ -259,7 +258,7 @@
                                         <td
                                             class=" py-2 px-5 text-[12px] text-primary-2 font-normal border-t border-[#F2F4F7]">
                                             <div>
-                                                <span>{{ $transaction->transaction_type }}</span>
+                                                <span>{{ $transaction->transac_type }}</span>
                                             </div>
                                         </td>
                                         <td
@@ -283,8 +282,8 @@
                                         </td>
                                         <td
                                             class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                                            <a href="#">
-                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                            <a href="transactions/{{$transaction->transac_id}}/pdf">
+                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full hover:-translate-x-1 transition-all duration-300">
                                                     <span>Download</span>
                                                 </div>
                                             </a>
@@ -387,7 +386,7 @@
                                         <td
                                             class=" py-2 px-5 text-[12px] text-primary-2 font-normal border-t border-[#F2F4F7]">
                                             <div>
-                                                <span>{{ $transaction->transaction_type }}</span>
+                                                <span>{{ $transaction->transac_type }}</span>
                                             </div>
                                         </td>
                                         <td
@@ -411,8 +410,8 @@
                                         </td>
                                         <td
                                             class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                                            <a href="#">
-                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                            <a href="transactions/{{$transaction->transac_id}}/pdf">
+                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full hover:-translate-x-1 transition-all duration-300">
                                                     <span>Download</span>
                                                 </div>
                                             </a>
@@ -515,7 +514,7 @@
                                         <td
                                             class=" py-2 px-5 text-[12px] text-primary-2 font-normal border-t border-[#F2F4F7]">
                                             <div>
-                                                <span>{{ $transaction->transaction_type }}</span>
+                                                <span>{{ $transaction->transac_type }}</span>
                                             </div>
                                         </td>
                                         <td
@@ -539,15 +538,15 @@
                                         </td>
                                         <td
                                             class=" py-2 px-5 text-center text-[15px] text-primary-2 font-normal border-t border-[#F2F4F7]">
-                                            <a href="#">
-                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full">
+                                            <a href="transactions/{{$transaction->transac_id}}/pdf">
+                                                <div class="border-2 border-primary-2 px-3 py-1 rounded-full hover:-translate-x-1 transition-all duration-300">
                                                     <span>Download</span>
                                                 </div>
                                             </a>
                                         </td>
                                     </tr>
                                 @endforeach
-                                
+
                             </tbody>
                         </table>
                     </div>

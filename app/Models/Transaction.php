@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,7 +50,85 @@ class Transaction extends Model
         return $this->belongsTo(Account::class, 'recipient_account_id');
     }
 
-    public function expensiveMonth($transactions)
+    public static function getTransactionsByUser($user){
+
+        $transactions = self::select(
+            "transactions.id as transac_id",
+            "transactions.description as transac_description",
+            "transactions.transaction_type as transac_type",
+            "transactions.amount as transac_amount",
+            "transactions.created_at as transac_date",
+            "transactions.currency as transac_currency",
+        )
+        ->join('users', 'users.id', '=', 'transactions.user_id')
+        ->where('users.id', '=', $user->id)
+        ->get();
+
+        return $transactions;
+    }
+
+    public static function getTransactionsIdByUser($user,$transac_id){
+
+        $transactions = self::select(
+            "transactions.id as transac_id",
+            "transactions.description as transac_description",
+            "transactions.transaction_type as transac_type",
+            "transactions.amount as transac_amount",
+            "transactions.created_at as transac_date",
+            "transactions.currency as transac_currency",
+        )
+        ->join('users', 'users.id', '=', 'transactions.user_id')
+        ->where('users.id', '=', $user->id)
+        ->where('transactions.id', '=',$transac_id)
+        ->get();
+
+        return $transactions;
+    }
+
+    public static function getIncomeTransactionsByUser($user){
+        $incomeTransactions = self::select(
+            "transactions.id as transac_id",
+            "transactions.description as transac_description",
+            "transactions.transaction_type as transac_type",
+            "transactions.amount as transac_amount",
+            "transactions.created_at as transac_date",
+            "transactions.currency as transac_currency",
+        )
+        ->join('users', 'users.id', '=', 'transactions.user_id')
+        ->join('accounts', 'accounts.id', '=', 'transactions.recipient_account_id')
+        ->where('users.id', '<>', $user->id)
+        ->where('accounts.user_id', '=', $user->id)
+        ->get();
+
+        return $incomeTransactions;
+    }
+
+    public static function getExpenseTransactionsByUser($user){
+        $expenseTransactions = self::select(
+            "transactions.id as transac_id",
+            "transactions.description as transac_description",
+            "transactions.transaction_type as transac_type",
+            "transactions.amount as transac_amount",
+            "transactions.created_at as transac_date",
+            "transactions.currency as transac_currency",
+        )
+        ->join('users', 'users.id', '=', 'transactions.user_id')
+        ->join('accounts', 'accounts.id', '=', 'transactions.recipient_account_id')
+        ->where('users.id', '=', $user->id)
+        ->where('accounts.user_id', '<>', $user->id)
+        ->get();
+
+        return $expenseTransactions;
+    }
+
+    public static function getTransactionsPaginate($itemsAll,$transactions, $currentPage, $perPage)
+    {
+        $allTransacPaginator = new LengthAwarePaginator($itemsAll, $transactions->count(), $perPage, $currentPage, ['path' => request()->url(), 'query' => request()->query()]);
+
+        return $allTransacPaginator;
+    }
+
+    public static function expensiveMonth($transactions)
     {
 
         $monthExpense[1] = 0;
@@ -67,7 +146,7 @@ class Transaction extends Model
             foreach ($transactions as $transaction) {
 
                 $date = Carbon::parse($transaction->transac_date);
-               
+
                 //verifier si c'est l'annee en cours
                 $transacYear = intval($date->year);
                 $actuelYear = intval(Date('Y'));
@@ -129,7 +208,7 @@ class Transaction extends Model
         return $expenseMonthPercent;
     }
 
-    public function mostExpensiveMonth($transactions)
+    public static function mostExpensiveMonth($transactions)
     {
 
         $monthExpense[1] = 0;
@@ -147,7 +226,7 @@ class Transaction extends Model
             foreach ($transactions as $transaction) {
 
                 $date = Carbon::parse($transaction->transac_date);
-                
+
                 //verifier si c'est l'annee en cours
                 $transacYear = intval($date->year);
                 $actuelYear = intval(Date('Y'));
@@ -158,7 +237,7 @@ class Transaction extends Model
                         $monthExpense[$i] += $amount;
                     }
                 }
-               
+
             }
         }
 

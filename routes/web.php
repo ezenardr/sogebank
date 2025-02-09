@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
@@ -21,8 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => '/transactions'], function() {
         Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
-        // Route::get('/income', [TransactionController::class, 'showIncome'])->name('sow-income');
-        // Route::get('/expense', [TransactionController::class, 'showExpense'])->name('sow-expense');
+        Route::get('/{id}/pdf', [PDFController::class, 'generateTransactionPDF']);
     });
 
     Route::group(['prefix' => '/send-money'], function () {
@@ -34,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/third-party-sogebank', [TransfertController::class, 'ShowSendMoneyToThirdPartySogebank'])->name('ShowSendMoneyToThirdPartySogebank');
         Route::post('/third-party-sogebank', [TransfertController::class, 'SendMoney']);
-
 
     });
 

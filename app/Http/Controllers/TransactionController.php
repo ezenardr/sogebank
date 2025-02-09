@@ -13,51 +13,15 @@ class TransactionController extends Controller
 {
     public function showTransaction(Request $request)
     {
-
-        $monthTransac = new Transaction();
         $user = $user = auth()->user();
 
-        $transactions = Transaction::select(
-            "transactions.id as transac_id",
-            "transactions.description as transac_description",
-            "transactions.amount as transac_amount",
-            "transactions.created_at as transac_date",
-            "transactions.currency as transac_currency",
-        )
-            ->join('users', 'users.id', '=', 'transactions.user_id')
-            ->where('users.id', '=', $user->id)
-            ->get();
-
-        
-        $incomeTransactions = Transaction::select(
-            "transactions.id as transac_id",
-            "transactions.description as transac_description",
-            "transactions.amount as transac_amount",
-            "transactions.created_at as transac_date",
-            "transactions.currency as transac_currency",
-        )
-            ->join('users', 'users.id', '=', 'transactions.user_id')
-            ->join('accounts', 'accounts.id', '=', 'transactions.recipient_account_id')
-            ->where('users.id', '<>', $user->id)
-            ->where('accounts.user_id', '=', $user->id)
-            ->get();
-
-        $expenseTransactions = Transaction::select(
-            "transactions.id as transac_id",
-            "transactions.description as transac_description",
-            "transactions.amount as transac_amount",
-            "transactions.created_at as transac_date",
-            "transactions.currency as transac_currency",
-        )
-            ->join('users', 'users.id', '=', 'transactions.user_id')
-            ->join('accounts', 'accounts.id', '=', 'transactions.recipient_account_id')
-            ->where('users.id', '=', $user->id)
-            ->where('accounts.user_id', '<>', $user->id)
-            ->get();
+        $transactions = Transaction::getTransactionsByUser($user);
+        $incomeTransactions = Transaction::getIncomeTransactionsByUser($user);
+        $expenseTransactions = Transaction::getExpenseTransactionsByUser($user);
 
         $allTransactions = $transactions->concat($incomeTransactions);
-        $expensiveMonth = $monthTransac->expensiveMonth($allTransactions);
-        $mostExpensiveMonth = $monthTransac->mostExpensiveMonth($allTransactions);
+        $expensiveMonth = Transaction::expensiveMonth($allTransactions);
+        $mostExpensiveMonth = Transaction::mostExpensiveMonth($allTransactions);
 
         // Paginator prepare
         $perPage = 3;
@@ -65,15 +29,15 @@ class TransactionController extends Controller
 
         // All Transactions Paginator
         $itemsAll = $allTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $allTransacPaginator = new LengthAwarePaginator($itemsAll, $allTransactions->count(), $perPage, $currentPage, ['path' => request()->url(), 'query' => request()->query()]);
+        $allTransacPaginator = Transaction::getTransactionsPaginate($itemsAll,$allTransactions,$currentPage, $perPage);
 
         // Income Transac Paginator
         $itemsIncome = $incomeTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $incomeTransacPaginator = new LengthAwarePaginator($itemsIncome, $incomeTransactions->count(), $perPage, $currentPage, ['path' => request()->url(), 'query' => request()->query()]);
+        $incomeTransacPaginator = Transaction::getTransactionsPaginate($itemsIncome ,$incomeTransactions,$currentPage, $perPage);
 
         // Expense Transac Paginator
         $itemsExpense = $expenseTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $expenseTransacPaginator = new LengthAwarePaginator($itemsExpense, $expenseTransactions->count(), $perPage, $currentPage, ['path' => request()->url(), 'query' => request()->query()]);
+        $expenseTransacPaginator = Transaction::getTransactionsPaginate($itemsExpense  ,$expenseTransactions,$currentPage, $perPage);
 
         if ($request->input('view') == 'income') {
             return view('transactions', [
