@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransfertController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
@@ -17,8 +19,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/transactions', function () {
-        return view('transactions');
+
+    Route::group(['prefix' => '/transactions'], function() {
+        Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
+        Route::get('/{id}/pdf', [PDFController::class, 'generateTransactionPDF']);
     });
 
     Route::group(['prefix' => '/send-money'], function () {
@@ -30,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/third-party-sogebank', [TransfertController::class, 'ShowSendMoneyToThirdPartySogebank'])->name('ShowSendMoneyToThirdPartySogebank');
         Route::post('/third-party-sogebank', [TransfertController::class, 'SendMoney']);
-
 
     });
 

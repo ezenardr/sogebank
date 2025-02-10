@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin IdeHelperUsersPreferences
+ */
 class UsersPreferences extends Model
 {
     use HasFactory, HasUuids,Notifiable;
