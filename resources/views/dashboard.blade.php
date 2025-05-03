@@ -132,42 +132,25 @@
         <div class="flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Transactions Récentes</span>
             <div class=" flex flex-col gap-4 bg-white px-8 py-4 max-w-[450px] rounded-[25px]">
-                <div class="flex justify-between items-center ">
-                    <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#FFF5D9]">
-                        <img src="{{'assets/icons/withdraw.svg'}}" alt="icon with">
+                @foreach ($recentTransaction as $recent)
+                    <div class="flex justify-between items-center ">
+                        <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#E7EDFF]">
+                            @php $recent->getIcone() @endphp
+                        </div>
+                        <div class="flex-col flex">
+                            <span class="font-medium text-[16px] text-[#232323]">{{$recent->transac_type}}</span>
+                            <span class="text-[15px] text-[#718EBF]">{{ $recent->getDate() }}</span>
+                        </div>
+                        <div> 
+                            <span
+                                @class([
+                                    'text-[16px] font-medium',
+                                    'text-[#FF4B4A]' => $recent->expense(),
+                                    'text-[#41D4A8]' => (!$recent->expense())
+                                ])>{{ $recent->getTag()}}{{ $recent->getSum()}}</span>
+                        </div>
                     </div>
-                    <div class="flex-col flex">
-                        <span class="font-medium text-[16px] text-[#232323]">Retrait surccusale </span>
-                        <span class="text-[15px] text-[#718EBF]">28 Janvier 2024</span>
-                    </div>
-                    <div>
-                        <span class="text-[16px] font-medium text-[#FF4B4A]">-HTG 850</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center ">
-                    <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#E7EDFF]">
-                        <img src="{{'assets/icons/transfer.svg'}}" alt="icon transfert">
-                    </div>
-                    <div class="flex-col flex">
-                        <span class="font-medium text-[16px] text-[#232323]">Depot </span>
-                        <span class="text-[15px] text-[#718EBF]">27 Janvier 2024</span>
-                    </div>
-                    <div>
-                        <span class="text-[16px] font-medium text-[#41D4A8]">+HTG 2,500</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center ">
-                    <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#DCFAF8]">
-                        <img src="{{'assets/icons/transfer.svg'}}" alt="icon transfert">
-                    </div>
-                    <div class="flex-col flex">
-                        <span class="font-medium text-[16px] text-[#232323]">Jemi Wilson </span>
-                        <span class="text-[15px] text-[#718EBF]">21 Janvier 2024</span>
-                    </div>
-                    <div>
-                        <span class="text-[16px] font-medium text-[#41D4A8]">+HTG 5,400</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -182,7 +165,7 @@
                 </div>
                 <div class="bg-white flex flex-col rounded-[25px] h-[322px] p-4">
 
-                    <!-- En tete -->
+                    {{-- En tete --}}
                     <div class="flex justify-end py-4">
                         
                         <div class="flex">
@@ -191,8 +174,8 @@
                                 <div class="mx-3 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Diposit</div>
                             </div>
                             <div class="mx-2 flex">
-                                <div class="xl:w-[15px] xl:h-[15px] w-[12px] h-[12px] rounded-full bg-[#FF82AC]"></div>
-                                <div class="ms-2 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Withdraw</div>
+                                <div class="xl:w-[15px] xl:h-[15px] w-[12px] h-[12px] rounded-full bg-[#FF4B4A]"></div>
+                                <div class="ms-2 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Expense</div>
                             </div>
                         </div>
                     </div>
@@ -200,127 +183,55 @@
                     <div class="h-full mb-6 relative">
                         {{--Graduation et lignes / histogramme --}}
                         <div class="h-full w-full flex flex-col justify-between px-2 text-[#718EBF] text-[13px] font-normal">
-                            <div class="flex space-x-1 items-center">
-                                <span class="">500</span>
+                            <div class="flex items-center">
+                                <span class="">%expense</span>
+                                <div class="h-[1px] w-full bg-white self-center"></div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="">100%</span>
                                 <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
                             </div>
-                            <div class="flex space-x-1 items-center">
-                                <span class="">400</span>
+                            <div class="flex items-center">
+                                <span class="">75%</span>
                                 <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
                             </div>
-                            <div class="flex space-x-1 items-center">
-                                <span class="">300</span>
+                            <div class="flex items-center">
+                                <span class="">50%</span>
                                 <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
                             </div>
-                            <div class="flex space-x-1 items-center">
-                                <span class="">200</span>
+                            <div class="flex items-center ">
+                                <span class="">25%</span>
                                 <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
                             </div>
-                            <div class="flex space-x-1 items-center ">
-                                <span class=""">100</span>
-                                <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
-                            </div>
-                            <div class="flex space-x-1 items-center">
-                                <span class="ml-3" >0</span>
+                            <div class="flex items-center">
+                                <span class="ml-3" >0%</span>
                                 <div class="h-[1px] w-full bg-[#F3F3F5] self-center"></div>
                             </div>
                         </div>    
                         
-                        <!-- Histogramme -->
+                        {{-- Histogramme --}}
                         <div class=" -bottom-7 left-[10%] z-1 absolute w-[90%] h-full flex gap-[1%]">
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[90%] relative top-[10%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Sat
-                                </div>
-                            </div>
+                            @for($i = 1; $i <= 7; $i++)
+                                <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
+                                    <!-- two bars - container -->
+                                    <div class="flex justify-around h-[90%]">
+                                        <!-- bars -->
+                                        @php $topExpense = 100 - $weeklyActivities[0][$i]; $topDeposit = 100 - $weeklyActivities[1][$i] @endphp
+                                        
+                                        <div style="height: {{$weeklyActivities[1][$i]}}%; top:{{$topDeposit}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] relative"></div>
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[20%] relative top-[80%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[30%] relative top-[70%]"></div>
+                                        <div style="height: {{$weeklyActivities[0][$i]}}%; top:{{$topExpense}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FF4B4A] w-[25%] relative"></div>
+                                    </div>
+                                    <!-- day -->
+                                    <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
+                                        {{App\Models\Transaction::getDay($i)}}
+                                    </div>
                                 </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Sun
-                                </div>
-                            </div>
+                            @endfor
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[100%] relative top-[0%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[40%] relative top-[60%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Mon
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[20%] relative top-[80%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Tue
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[70%] relative top-[30%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[60%] relative top-[40%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Wed
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[90%] relative top-[10%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[50%] relative top-[50%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Thu
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-primary-3 w-[25%] h-[80%] relative top-[20%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-secondary-2 w-[25%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Fri
-                                </div>
-                            </div>
                         </div>
-                        <!-- Fin histogramme -->                       
+                        {{-- Fin histogramme --}}                      
                     </div>    
                 </div>
 
@@ -340,58 +251,97 @@
     <div class="mt-4 flex flex-col lg:grid grid-cols-10 gap-8 mb-24">
         <div class="col-span-4 flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Quick Transfer</span>
-            <div class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
+
+            {{--
+                @notice - Important! - Vue manquante
+                Pour la vue des profiles de beneficaire - quick Transfert
+
+                les profiles doivent etre des champs de selections
+                lorsque l'utilisateur clique dessus, le profil du beneficiare en question
+                doit etre selectionner.
+
+            --}}
+
+            <form class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
                 <div class="flex justify-between items-center">
 
-                    {{-- Div des profils --}}
-                    <div class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
-                        {{-- Profils  --}}
-                        <div class="w-[33%] flex flex-col items-center">
-                            {{-- Image de profil  --}}
-                            <div class="w-[70px] rounded-full overflow-hidden">
-                                <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">Livia Bator</span>
-                                <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">CEO</span>
-                            </div>
-                        </div>
-                
-                        <div class="w-[33%] flex flex-col items-center">
-                            {{-- Image de profil  --}}
-                            <div class="w-[70px] rounded-full overflow-hidden">
-                                <img src="{{'/assets/images/profile-mage.png'}}" alt="Randy Press" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">Randy Press</span>
-                                <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">Director</span>
+                    @forelse ($beneficiaries as $beneficiary) 
+                        {{-- Div des profils --}}
+
+                        {{-- @notice - Important! - Vue manquante - doit etre des champs de selection --}}
+                        <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
+                            {{-- Profils  --}}
+                            <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
+                                {{-- Image de profil  --}}
+                                <div class="w-[70px] rounded-full overflow-hidden">
+                                    <span class="w-10 h-10 object-cover bg-gray-100 font-bold">{{Str::substr($beneficiary->first_name,0,1) . ' ' . Str::substr($beneficiary->last_name,0,1)}}</span>
+                                    
+                                    {{-- <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover"> --}}
+                                </div>
+                                <div class="flex flex-col items-center justify-center">
+                                    {{-- <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">{{$beneficiary->first_name . ' ' . $beneficiary->last_name}}</span> --}}
+                                    {{-- <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">{{$beneficiary->email}}</span> --}}
+                                </div>
                             </div>
                         </div>
-                
-                        <div class="w-[33%] flex flex-col items-center">
-                            {{-- Image de profil  --}}
-                            <div class="w-[70px] rounded-full overflow-hidden">
-                                <img src="{{'/assets/images/profile-mage.png'}}" alt="Workman" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex flex-col items-center justify-center">
-                                <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">Workman</span>
-                                <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">Designer</span>
+                    
+                        {{-- Bouton suivant --}}
+                        <div class="w-[20%] flex justify-end">
+                            <div class="rounded-full w-[50px] h-[50px] shadow-md flex items-center justify-center bg-white">
+                                <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 13L7 7L1 1" stroke="#2D60FF" stroke-width="2"/>
+                                </svg>
                             </div>
                         </div>
-                    </div>
-                
-                    {{-- Bouton suivant --}}
-                    <div class="w-[20%] flex justify-end">
-                        <div class="rounded-full w-[50px] h-[50px] shadow-md flex items-center justify-center bg-white">
-                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 13L7 7L1 1" stroke="#2D60FF" stroke-width="2"/>
+                    @empty 
+                        <a href="/beneficiary/new-beneficiary" class="lg:hidden bg-white p-4 rounded-[12px] flex items-center gap-4 w-full justify-center">
+                            <svg width="30" height="30" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.75 9.75H4.25V8.25H8.75V3.75H10.25V8.25H14.75V9.75H10.25V14.25H8.75V9.75Z"
+                                    fill="#718EBF"/>
                             </svg>
-                        </div>
-                    </div>
-                
+                            <span class="font-medium text-[16px]">Nouveau Bénéficiaire</span>
+                        </a>
+                    @endforelse
                 </div>
                 
+                <div>
+                    <label
+                        class="text-[#232323] font-normal"
+                        for="recipient_account_id">
+                        Compte
+                    </label><br>
+                    <select name="recipient_account_id" id="recipient_account_id"
+                            class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
+                        <option value="">--Séléctionner un compte--</option>
+
+                    </select>
+                </div>
+
+                <div>
+
                 
+                    <label
+                        class="text-[#232323] font-normal"
+                        for="recipient_account_id">
+                        De
+                    </label><br>
+                    <select name="account_id" id="account_id"
+                            class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
+                        <option value="">--Séléctionner un compte--</option>
+                        @foreach($accounts as $account)
+                            <option
+                                value="{{$account->id}}">{{$account -> account_number}} @if ($account->account_type == 'checking')
+                                    Chèque
+                                @elseif ($account->account_type == 'savings')
+                                    Épargne
+                                @else
+                                    Business
+                                @endif {{ $account->currency == 'HTG' ? 'Gourdes' : 'Dollars' }} {{$account -> currency}} {{$account -> available_balance}}</option>
+                        @endforeach
+
+                    </select>
+            </div>
+
                 <div class="flex space-x-4">
 
                     <div class="flex items-center">
@@ -400,7 +350,7 @@
                 
                     <div class="w-[250px]">
                         <div class="w-[100%]">
-                            <form class="w-[100%] flex h-[20%] bg-[#EDF1F7] rounded-[50px]">
+                            <div class="w-[100%] flex h-[20%] bg-[#EDF1F7] rounded-[50px]">
                                 <input type="text" class="w-[50%] rounded-[50px] p-4 bg-[#EDF1F7] font-medium text-[15px] text-[#718EBF] focus:outline-none lg:" placeholder="$4456" />
                                 <div class="w-[50%] h-full bg-primary-3 rounded-[50px] p-4 flex justify-around">
                                     <input type="submit" class="h-full self-center text-white text-[16px] font-medium" value="Send" /> 
@@ -408,12 +358,12 @@
                                         <path d="M25.9824 0.923369C26.1091 0.333347 25.5307 -0.164153 24.9664 0.0511577L0.490037 9.39483C0.195457 9.50731 0.000610804 9.78965 1.43342e-06 10.105C-0.000607937 10.4203 0.193121 10.7034 0.487294 10.817L7.36317 13.4726V21.8369C7.36317 22.1897 7.60545 22.4963 7.94873 22.5779C8.28972 22.659 8.64529 22.4967 8.80515 22.1796L11.6489 16.5364L18.5888 21.6868C19.011 22.0001 19.6178 21.8008 19.7714 21.2974C26.251 0.0528342 25.9708 0.97674 25.9824 0.923369ZM19.9404 3.60043L8.01692 12.092L2.88664 10.1106L19.9404 3.60043ZM8.8866 13.3428L19.2798 5.94118C10.3366 15.3758 10.8037 14.8792 10.7647 14.9317C10.7067 15.0096 10.8655 14.7058 8.8866 18.6327V13.3428ZM18.6293 19.8197L12.5206 15.2862L23.566 3.63395L18.6293 19.8197Z" fill="white"/>
                                     </svg>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 
                 </div>
-            </div>
+            </form>
         </div>    
         <div class="col-span-6">
             <div class="flex flex-col gap-3">
@@ -429,5 +379,28 @@
        
                    
     </div>
+    <script>
+        document.getElementById('beneficiary').addEventListener('change', function () {
+            let beneficiaryId = this.value;
+            let accountSelect = document.getElementById('recipient_account_id');
+
+            // Clear existing options
+            accountSelect.innerHTML = '<option value="">--Sélectionner un compte--</option>';
+
+            if (beneficiaryId) {
+                fetch(`/beneficiary/${beneficiaryId}/accounts`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(account => {
+                            let option = document.createElement('option');
+                            option.value = account.id;
+                            option.textContent = `${account.account_number} - ${account.account_type} ${account.currency}`;
+                            accountSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
+        });
+    </script>
 
 </x-app-layout>
