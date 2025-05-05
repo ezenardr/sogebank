@@ -15,10 +15,8 @@ class BeneficiaryController extends Controller
     public function ShowBeneficiary(): view
     {
         $user = auth()->user();
-        $beneficiaries = DB::table('beneficiaries')
-                        ->where('user_id', '=', $user->id)
-                        ->join('users', 'beneficiaries.beneficiary_id', '=', 'users.id')
-                        ->get();
+        $beneficiaries = Beneficiary::forUser();
+        
         return view('beneficiary', ['beneficiaries' => $beneficiaries]);
     }
 

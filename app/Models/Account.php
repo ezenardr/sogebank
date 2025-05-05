@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin IdeHelperAccount
@@ -48,6 +49,18 @@ class Account extends Model
         }
 
         return $accountNumber;
+    }
+
+    public static function isForUser($id)
+    {
+        $accounts = (Auth::user())
+            ->accounts()
+            ->get();
+
+        if(!is_null($accounts->find($id))){
+            return true;
+        }
+        return false;
     }
 
 }

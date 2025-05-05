@@ -8,6 +8,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransfertController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
 Route::post('/auth/register', [AuthController::class, 'register'])->name('auth.register');
@@ -16,9 +17,7 @@ Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login')
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['prefix' => '/transactions'], function() {
         Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');

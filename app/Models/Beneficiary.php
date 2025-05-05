@@ -3,10 +3,12 @@
 namespace App\Models;
 
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 /**
  * @mixin IdeHelperBeneficiary
@@ -38,6 +40,13 @@ class Beneficiary extends Authenticatable
         'beneficiary_id',
     ];
 
+    public static function forUser()
+    {
+        return DB::table('beneficiaries')
+            ->where('user_id', '=', (Auth::user())->id)
+            ->join('users', 'beneficiaries.beneficiary_id', '=', 'users.id')
+            ->get();
+    }
 
 
 }
