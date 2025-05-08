@@ -89,4 +89,10 @@ class User extends Authenticatable
         return $this->hasMany(Account::class);
     }
 
+    public static function lastTransaction()
+    {
+        $last = null;
+        return $last;
+    }
+
 }

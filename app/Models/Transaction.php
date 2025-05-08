@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\Account;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -59,9 +60,27 @@ class Transaction extends Model
         return $date->translatedFormat("d M Y");
     }
 
+    public function getDescription()
+    {
+        return Str::substr($this->description,0,7) . "...";
+    }
+
+    public function forDetails()
+    {
+        // get detauils, why ?
+        return 'sogebank';
+    }
+
+    public function getCardNumber()
+    {
+        // get card Number
+        return '123***';
+    }
+
     public function getSum()
     {
-        return $this->transac_currency . " " . $this->transac_amount;
+        $amount = $this->amount ? $this->amount : $this->transac_amount;
+        return Account::balanceFormat($amount);
     }
 
     public function getIcone()
@@ -92,30 +111,42 @@ class Transaction extends Model
         echo $icone;
     }
 
-    public function expense()
+    public function expense($id = null)
     {
-        $type = $this->transac_type;
-        $from = $this->transac_from;
-        $to = $this->transac_to;
+        $type = $this->transac_type ? $this->transac_type : $this->transaction_type;
+        $from = $this->transac_from ? $this->transac_from : $this->account_id;
+        $to = $this->transac_to ? $this->transac_to : $this->recipient_account_id;
 
-        if(str_contains($this->transac_type, 'depos')){
+        if(str_contains($type, 'depos')){
             return false;
-        }elseif(str_contains($this->transac_type, 'withd')){
+        }elseif(str_contains($type, 'withd')){
             return true;
         }else{
-            if(Account::isForUser($from))
-            {
-                if(Account::isForUser($to))
-                {
+            // si les comptes ont pour meme user
+            if(!is_null($id)){
+                if($to == $id){
+                    return true;
+                }else{
                     return false;
                 }
-                return true;
+            }else{
+                if(Account::isForUser($from))
+                {
+                    if(Account::isForUser($to))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
             }
         }
     }
 
-    public function getTag()
+    public function getTag($id = null)
     {
+        if(!is_null($id)){
+            return $this->expense($id) ? "-" : "+";
+        }
         return $this->expense() ? "-" : "+";
     }
 
@@ -257,7 +288,7 @@ class Transaction extends Model
         return $allTransacPaginator;
     }
 
-    public static function weeklyActivities($transactions)
+    public static function weeklyActivities($transactions,$account_id = null)
     {
         $quantity = 7;
         $expenseTotal = 0;
@@ -273,23 +304,35 @@ class Transaction extends Model
 
         foreach ($transactions as $transaction) {
 
-            $date = Carbon::parse($transaction->transac_date);
+            $tansaction_date = $transaction->transac_date ? $transaction->transac_date : $transaction->created_at;
+            $date = Carbon::parse($tansaction_date);
             if($date->isSameYear($today))
             {
                 if($date->isSameMonth($today))
                 {
                     if($date->isSameWeek($today))
                     {   
-                        $amount = doubleval($transaction->transac_amount);
+                        $transaction_amount = $transaction->transac_amount ? $transaction->transac_amount : $transaction->amount;
+                        $amount = doubleval($transaction_amount);
                         $expenseTotal += $amount;
 
                         for ($i = 1; $i <= $quantity; $i++) {
                             if ($date->dayOfWeek == $i) {
-                                if($transaction->expense())
+                                if(!is_null($account_id))
                                 {
-                                    $dayExpense[0][$i] += $amount;
+                                    if($transaction->expense($account_id))
+                                    {
+                                        $dayExpense[0][$i] += $amount;
+                                    }else{
+                                        $dayExpense[1][$i] += $amount;
+                                    }
                                 }else{
-                                    $dayExpense[1][$i] += $amount;
+                                    if($transaction->expense())
+                                    {
+                                        $dayExpense[0][$i] += $amount;
+                                    }else{
+                                        $dayExpense[1][$i] += $amount;
+                                    }
                                 }
                                 break;
                             }

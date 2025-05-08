@@ -63,4 +63,79 @@ class Account extends Model
         return false;
     }
 
+    public static function incomeFor($id,$transaction)
+    {
+        $income = 0;
+        $incomeTransactions = $transaction->where('transac_to',$id);
+       
+        foreach($incomeTransactions as $incomeTransaction)
+        {
+            if(empty($incomeTransaction))
+            return 0;
+
+            $income += $incomeTransaction->transac_amount;
+        }
+        return $income;
+    }
+
+    public static function expenseFor($id,$transaction)
+    {
+        $expense = 0;
+        $expenseTransactions = $transaction->where('transac_from',$id);
+
+        foreach($expenseTransactions as $expenseTransaction)
+        {
+            if(empty($expenseTransaction))
+            return 0;
+
+            $expense += $expenseTransaction->transac_amount;
+        }
+        return $expense;
+    }
+
+    public static function savingFor($id)
+    {
+        $saving = 0;
+        return $saving;
+    }
+
+    public static function lastTransactionFor($id,$limit = false,$qte = 3)
+    {
+        $debit = null;
+        $credit = null;
+
+        $debit = (Auth::user())
+            ->transactions()
+            ->where('account_id',$id)
+            ->orderByRaw('created_at DESC')
+            ->get();
+
+        $credit = (Auth::user())
+            ->transactions()
+            ->where('recipient_account_id',$id)
+            ->orderByRaw('created_at DESC')
+            ->get();
+        
+        $transactions = $debit->concat($credit)->sortByDesc('created_at');
+        return $limit ? $transactions->take($qte) : $transactions;
+    }
+
+    public static function balanceFormat($balance)
+    {
+        return number_format((float)$balance,2, ',', '.');
+    }
+
+    public static function debitCredFor($id)
+    {
+        return Transaction::weeklyActivities(
+            self::lastTransactionFor($id), 
+            $id
+        );
+    }
+
+    public function getBalance()
+    {
+        return self::balanceFormat($this->available_balance);
+    }
+
 }

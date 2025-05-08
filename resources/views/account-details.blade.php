@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title', 'Compte - Sogebanking')
-    @section('pageTitle', $account_id)
+    @section('pageTitle', $account->account_number)
     <div class="container mx-auto p-4 overflow-scroll h-dvh">
         <!-- first part -->
         <div class="flex gap-4 md:gap-0 justify-between flex-wrap">
@@ -22,7 +22,7 @@
                         </div>
                         <div>
                             <span class="text-[#718EBF] xl:text-[14px] text-[12px] font-normal">My Balance</span><br>
-                            <span class="text-[#232323] xl:text-[25px] text-[16px] font-semibold"> $12,250</span>
+                            <span class="text-[#232323] xl:text-[15px] text-[12px] font-semibold">{{ $account->currency . ' ' . $account->getBalance()}}</span>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         </div>
                         <div>
                             <span class="text-[#718EBF] xl:text-[14px] text-[12px] font-normal">Income</span><br>
-                            <span class="text-[#232323] xl:text-[25px] text-[16px] font-semibold"> $5,600 </span>
+                            <span class="text-[#232323] xl:text-[15px] text-[12px] font-semibold"> {{ $account->currency . ' ' . \App\Models\Account::balanceFormat($income)}} </span>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <span class="text-[#718EBF] xl:text-[14px] text-[12px] font-normal">Expense</span><br>
-                            <span class="text-[#232323] xl:text-[25px] text-[16px] font-semibold"> $3,460</span>
+                            <span class="text-[#232323] xl:text-[15px] text-[12px] font-semibold"> {{ $account->currency . ' ' . \App\Models\Account::balanceFormat($expense)}}</span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div>
                             <span class="text-[#718EBF] xl:text-[14px] text-[12px] font-normal">Total Saving</span><br>
-                            <span class="text-[#232323] xl:text-[25px] text-[16px] font-semibold">$7,920</span>
+                            <span class="text-[#232323] xl:text-[15px] text-[12px] font-semibold">{{ $account->currency . ' ' . \App\Models\Account::balanceFormat($saving)}}</span>
                         </div>
                     </div>
                 </div>
@@ -90,127 +90,42 @@
 
             <div class="w-[100%] md:w-[62%]">
                 <h2 class="font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]">Last Transaction</h2>
-                <div class=" bg-white rounded-[25px] py-2 mt-4 h-[250px] overflow-y-scroll">
+                <div class=" bg-white rounded-[25px] py-2 mt-4 h-[250px]">
                     <table class=" w-[100%]">
-                        <tr>
-                            <td class="px-2 py-2">
-                                <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#DCFAF8] ">
-                                    <img src="{{'/assets/icons/renew-1.svg'}}" alt="expense icon">
-                                </div>
-                            </td>
-                            <td class=" px-2 py-2">
-                                <span class="xl:text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">Spotify Subscription</span> <br>
-                                <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">25 Jan 2021</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">Shopping</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">1234 ****</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">pending</span>
-                            </td>
-                            <td class="float-end md:float-none px-2 py-2">
-                                <span class=" xl:text-[16px] text-[12px] font-medium text-[#FE5C73]">-$150</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-2 py-2">
-                                <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#E7EDFF] ">
-                                    <img src="{{'/assets/icons/account-setting-icon.svg'}}" alt="expense icon">
-                                </div>
-                            </td>
-                            <td class=" px-2 py-2">
-                                <span class="xl-text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">Mobile Service</span> <br>
-                                <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">25 Jan 2021</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">Service</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">1234 ****</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">completed</span>
-                            </td>
-                            <td class="float-end md:float-none px-2 py-2">
-                                <span class=" xl:text-[16px] text-[12px] font-medium text-[#FE5C73]">-$440</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-2 py-2">
-                                <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#FFE0EB] ">
-                                    <img src="{{'/assets/icons/account-user-icon.svg'}}" alt="expense icon">
-                                </div>
-                            </td>
-                            <td class=" px-2 py-2">
-                                <span class="xl:text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">Emilie Wilson</span> <br>
-                                <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">25 Jan 2021</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">transfert</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">1234 ****</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">completed</span>
-                            </td>
-                            <td class="float-end md:float-none px-2 py-2">
-                                <span class=" xl:text-[16px] text-[12px] font-medium text-[#16DBAA]">$780</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-2 py-2">
-                                <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#E7EDFF] ">
-                                    <img src="{{'/assets/icons/account-setting-icon.svg'}}" alt="expense icon">
-                                </div>
-                            </td>
-                            <td class=" px-2 py-2">
-                                <span class="xl-text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">Mobile Service</span> <br>
-                                <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">25 Jan 2021</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">Service</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">1234 ****</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">completed</span>
-                            </td>
-                            <td class="float-end md:float-none px-2 py-2">
-                                <span class=" xl:text-[16px] text-[12px] font-medium text-[#FE5C73]">-$440</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-2 py-2">
-                                <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#FFE0EB] ">
-                                    <img src="{{'/assets/icons/account-user-icon.svg'}}" alt="expense icon">
-                                </div>
-                            </td>
-                            <td class=" px-2 py-2">
-                                <span class="xl:text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">Emilie Wilson</span> <br>
-                                <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">25 Jan 2021</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">transfert</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">1234 ****</span>
-                            </td>
-                            <td class="hidden md:table-cell px-2 py-2">
-                                <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">completed</span>
-                            </td>
-                            <td class="float-end md:float-none px-2 py-2">
-                                <span class=" xl:text-[16px] text-[12px] font-medium text-[#16DBAA]">$780</span>
-                            </td>
-                        </tr>
+                        @forelse ($transactions as $transaction)
+                            <tr>
+                                <td class="px-2 py-2">
+                                    <div class="xl:w-[55px] xl:h-[55px] md:w-[40px] md:h-[40px] w-[45px] h-[45px] flex items-center justify-center rounded-[40%]  bg-[#DCFAF8] ">
+                                        @php $transaction->getIcone() @endphp
+                                    </div>
+                                </td>
+                                <td class=" px-2 py-2">
+                                    <span class="xl:text-[16px] md:text-[12px] text-[14px] font-medium text-[#232323]">{{$transaction->getDescription()}}</span> <br>
+                                    <span class="text-[#718EBF] xl-text-[15px] text-[12px] font-normal">{{$transaction->getDate()}}</span>
+                                </td>
+                                <td class="hidden md:table-cell px-2 py-2">
+                                    <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">{{$transaction->forDetails()}}</span>
+                                </td>
+                                <td class="hidden md:table-cell px-2 py-2">
+                                    <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">{{$transaction->getCardNumber()}}</span>
+                                </td>
+                                <td class="hidden md:table-cell px-2 py-2">
+                                    <span class="xl:text-[16px] text-[12px] font-normal text-[#718EBF]">{{$transaction->status}}</span>
+                                </td>
+                                <td class="float-end md:float-none px-2 py-2">
+                                    <span
+                                        @class([
+                                        'xl:text-[16px] text-[12px] font-medium',
+                                        'text-[#FF4B4A]' => $transaction->expense($account->id),
+                                        'text-[#41D4A8]' => (!$transaction->expense($account->id))
+                                    ])>{{ $transaction->getTag($account->id) . ' ' . $account->currency . ' ' . $transaction->getSum() }}</span>
+                                </td>
+                            </tr>
+                        @empty
+                            <p class="text-center py-2 px-5  text-primary-2 font-semibold">
+                                Aucune Transaction effectuee
+                            </p>
+                        @endforelse
                     </table>
                 </div>
             </div>
@@ -231,8 +146,8 @@
             <div class="w-[100%] md:w-[62%]">
                 <h2 class="font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]">Debit & Credit Overview</h2>
 
-                <!-- Entete & Histogramme -->
-                <div class="mt-3">
+                <div class="bg-white rounded-[25px] h-[364px] p-5">
+                      
                     <div class="bg-white rounded-[25px] h-[364px] p-5">
                         <!-- En tete -->
                         <div class="flex md:justify-between justify-end">
@@ -242,11 +157,11 @@
                             <div class="flex">
                                 <div class="mx-2 flex">
                                     <div class="xl:w-[15px] xl:h-[15px] w-[12px] h-[12px] rounded-[30%] bg-[#4C78FF]"></div>
-                                    <div class="mx-3 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Debit</div>
+                                    <div class="mx-3 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Credit</div>
                                 </div>
                                 <div class="mx-2 flex">
                                     <div class="xl:w-[15px] xl:h-[15px] w-[12px] h-[12px] rounded-[30%] bg-[#FF82AC]"></div>
-                                    <div class="ms-2 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Credit</div>
+                                    <div class="ms-2 relative xl:bottom-[5px] bottom-[3px] font-normal xl:text-[16px] text-[12px] text-[#718EBF]">Debit</div>
                                 </div>
                             </div>
                         </div>
@@ -254,96 +169,24 @@
                         <!-- Histogramme -->
                         <div class="w-[100%] h-[95%] flex gap-[1%]">
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[90%] relative top-[10%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Sat
-                                </div>
-                            </div>
+                            @for($i = 1; $i <= 7; $i++)
+                                <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
+                                    <!-- two bars - container -->
+                                    <div class="flex justify-around h-[90%]">
+                                        <!-- bars -->
+                                        @php $topExpense = 100 - $debitCreds[0][$i]; $topDeposit = 100 - $debitCreds[1][$i] @endphp
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[20%] relative top-[80%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[30%] relative top-[70%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Sun
-                                </div>
-                            </div>
+                                        <div style="height: {{$debitCreds[1][$i]}}%; top:{{$topDeposit}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] relative"></div>
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[100%] relative top-[0%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[40%] relative top-[60%]"></div>
+                                        <div style="height: {{$debitCreds[0][$i]}}%; top:{{$topExpense}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FF82AC] w-[35%] relative"></div>
+                                    </div>
+                                    <!-- day -->
+                                    <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
+                                        {{App\Models\Transaction::getDay($i)}}
+                                    </div>
                                 </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Mon
-                                </div>
-                            </div>
+                            @endfor
 
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[20%] relative top-[80%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Tue
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[70%] relative top-[30%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[60%] relative top-[40%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Wed
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[90%] relative top-[10%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[50%] relative top-[50%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Thu
-                                </div>
-                            </div>
-
-                            <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                <!-- two bars - container -->
-                                <div class="flex justify-around h-[90%]">
-                                    <!-- bars -->
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] h-[80%] relative top-[20%]"></div>
-                                    <div class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FCAA0B] w-[35%] h-[100%] relative top-[0%]"></div>
-                                </div>
-                                <!-- day -->
-                                <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
-                                    Fri
-                                </div>
-                            </div>
                         </div>
                         <!-- Fin histogramme -->
                     </div>
@@ -465,7 +308,6 @@
                 </div>
             </div>
             <!-- Fin Invoices Sent -->
-
         </div>
     </div>
 </x-app-layout>
