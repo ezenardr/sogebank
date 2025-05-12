@@ -43,13 +43,8 @@ class AccountController extends Controller
         $user = Auth::user();
         $id = $account->id;
 
-        $income  = Account::incomeFor($id,
-            Transaction::getIncomeTransactionsByUser($user)
-        );
-
-        $expense = Account::expenseFor($id,
-            Transaction::getExpenseTransactionsByUser($user)
-        );
+        $income  = Account::incomeFor($id);
+        $expense = Account::expenseFor($id);
 
         $debitCreds = Account::debitCredFor($id);
         $saving = Account::savingFor($id);

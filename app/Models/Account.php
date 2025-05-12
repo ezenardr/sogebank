@@ -63,32 +63,32 @@ class Account extends Model
         return false;
     }
 
-    public static function incomeFor($id,$transaction)
+    public static function incomeFor($id)
     {
+        $incomeTransactions = self::creditFor($id);
         $income = 0;
-        $incomeTransactions = $transaction->where('transac_to',$id);
-       
+        
         foreach($incomeTransactions as $incomeTransaction)
         {
             if(empty($incomeTransaction))
             return 0;
 
-            $income += $incomeTransaction->transac_amount;
+            $income += $incomeTransaction->amount;
         }
         return $income;
     }
 
-    public static function expenseFor($id,$transaction)
+    public static function expenseFor($id)
     {
+        $expenseTransactions = self::debitFor($id);
         $expense = 0;
-        $expenseTransactions = $transaction->where('transac_from',$id);
 
         foreach($expenseTransactions as $expenseTransaction)
         {
             if(empty($expenseTransaction))
             return 0;
 
-            $expense += $expenseTransaction->transac_amount;
+            $expense += $expenseTransaction->amount;
         }
         return $expense;
     }
@@ -99,20 +99,29 @@ class Account extends Model
         return $saving;
     }
 
+    public static function creditFor($id)
+    {
+        return Transaction::where('recipient_account_id',$id)
+        ->orderByRaw('created_at DESC')
+        ->get();
+    }
+
+    public static function debitFor($id)
+    {
+        return (Auth::user())
+        ->transactions()
+        ->where('account_id',$id)
+        ->orderByRaw('created_at DESC')
+        ->get();
+    }
+
     public static function lastTransactionFor($id,$limit = false,$qte = 3)
     {
         $debit = null;
         $credit = null;
 
-        $debit = (Auth::user())
-            ->transactions()
-            ->where('account_id',$id)
-            ->orderByRaw('created_at DESC')
-            ->get();
-
-        $credit = Transaction::where('recipient_account_id',$id)
-            ->orderByRaw('created_at DESC')
-            ->get();
+        $debit = self::debitFor($id);
+        $credit = self::creditFor($id);
         
         $transactions = $debit->concat($credit)->sortByDesc('created_at');
         return $limit ? $transactions->take($qte) : $transactions;
