@@ -110,9 +110,7 @@ class Account extends Model
             ->orderByRaw('created_at DESC')
             ->get();
 
-        $credit = (Auth::user())
-            ->transactions()
-            ->where('recipient_account_id',$id)
+        $credit = Transaction::where('recipient_account_id',$id)
             ->orderByRaw('created_at DESC')
             ->get();
         

@@ -2,7 +2,7 @@
     @section('title', 'Compte - Sogebanking')
     @section('pageTitle', $account->account_number)
     <div class="container mx-auto p-4 overflow-scroll h-dvh">
-        <!-- first part -->
+        {{-- first part --}}
         <div class="flex gap-4 md:gap-0 justify-between flex-wrap">
             <div class="flex justify-between w-[100%] md:w-[49%]">
                 <div class="pb-2 xl:pt-1 w-[48%] xl:h-[120px] h-[90px] rounded-2xl bg-white">
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        <!-- Last Transaction  -->
+        {{-- Last Transaction --}}
         <div class="flex justify-between flex-wrap py-4 md:gap-[3%]">
 
             <div class="w-[100%] md:w-[62%]">
@@ -135,24 +135,25 @@
                     <h2 class="font-semibold xl:text-[22px] lg:text-[18px] text-[16px] text-[#333B69]">My Card</h2>
                     <h2 class="font-semibold xl:text-[17px] lg:text-[15px] text-[15px] text-[#333B69] cursor-pointer ">See All</h2>
                 </div>
-                <!-- card - edshy -->
+                {{-- card - edshy  --}}
             </div>
         </div>
 
-        <!-- Debit & Credit overview & Invoices Sent-->
+        {{-- Debit & Credit overview & Invoices Sent --}}
         <div class="flex justify-between flex-wrap py-2 md:gap-[3%] mb-[100px]">
 
-            <!-- Debit & Credit overview -->
-            <div class="w-[100%] md:w-[62%]">
+             {{-- Debit & Credit overview  --}}
+             {{-- old md:w-[62%] --}}
+            <div class="w-[100%]">
                 <h2 class="font-semibold xl:text-[22px] md:text-[18px] text-[16px] text-[#333B69]">Debit & Credit Overview</h2>
 
                 <div class="bg-white rounded-[25px] h-[364px] p-5">
                       
                     <div class="bg-white rounded-[25px] h-[364px] p-5">
-                        <!-- En tete -->
+                        {{-- En tete  --}}
                         <div class="flex md:justify-between justify-end">
-                            <div class="hidden md:block relative bottom-[5px] font-normal xl:text-[16px] md:text-[12px]">
-                                <span>$7550 </span><span class="text-[#718EBF]">Debited & </span><span>$5,420 </span><span class="text-[#718EBF]">Credited in this week</span>
+                            <div class="hidden md:block relative bottom-[5px] font-normal xl:text-[14px] md:text-[12px]">
+                                <span>{{$account->currency . ' ' .\App\Models\Account::balanceFormat($debitCreds[3][0])}} </span><span class="text-[#718EBF]">Debited & </span><span>{{$account->currency . ' ' .\App\Models\Account::balanceFormat($debitCreds[3][1])}} </span><span class="text-[#718EBF]">Credited in this week</span>
                             </div>
                             <div class="flex">
                                 <div class="mx-2 flex">
@@ -166,21 +167,21 @@
                             </div>
                         </div>
 
-                        <!-- Histogramme -->
+                        {{-- Histogramme  --}}
                         <div class="w-[100%] h-[95%] flex gap-[1%]">
 
                             @for($i = 1; $i <= 7; $i++)
                                 <div class="w-[13%] h-[100%] flex flex-col text-center pt-4  mx-1">
-                                    <!-- two bars - container -->
+                                    {{-- two bars - container --}}
                                     <div class="flex justify-around h-[90%]">
-                                        <!-- bars -->
+                                        {{-- bars --}}
                                         @php $topExpense = 100 - $debitCreds[0][$i]; $topDeposit = 100 - $debitCreds[1][$i] @endphp
 
                                         <div style="height: {{$debitCreds[1][$i]}}%; top:{{$topDeposit}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#1A16F3] w-[35%] relative"></div>
 
                                         <div style="height: {{$debitCreds[0][$i]}}%; top:{{$topExpense}}%" class=" xl:rounded-[10px] md:rounded-[7px] rounded-[4px] bg-[#FF82AC] w-[35%] relative"></div>
                                     </div>
-                                    <!-- day -->
+                                    {{-- day --}}
                                     <div class="py-2 font-normal xl:text-[14px] text-[12px] text-[#718EBF] ">
                                         {{App\Models\Transaction::getDay($i)}}
                                     </div>
@@ -188,13 +189,13 @@
                             @endfor
 
                         </div>
-                        <!-- Fin histogramme -->
+                        {{-- Fin histogramme  --}}
                     </div>
                 </div>
             </div>
 
-            <!-- Invoices Sent -->
-            <div class="w-[100%] md:w-[35%] mt-3 md:mt-0">
+            {{-- Invoices Sent  --}}
+            {{-- <div class="w-[100%] md:w-[35%] mt-3 md:mt-0">
                 <h2 class="font-semibold xl:text-[22px] lg:text-[18px] text-[16px] text-[#333B69]">Invoices Sent</h2>
 
                 <div class="mt-3 p-1 bg-white rounded-[25px] h-[360px] overflow-y-scroll">
@@ -306,8 +307,8 @@
                         </tr>
                     </table>
                 </div>
-            </div>
-            <!-- Fin Invoices Sent -->
+            </div> --}}
+            {{-- Fin Invoices Sent --}}
         </div>
     </div>
 </x-app-layout>

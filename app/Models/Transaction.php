@@ -55,7 +55,8 @@ class Transaction extends Model
 
     public function getDate()
     {
-        $date = Carbon::parse($this->transac_date);
+        $old = $this->transac_date ? $this->transac_date : $this-> created_at;
+        $date = Carbon::parse($old);
         $date->locale('fr');
         return $date->translatedFormat("d M Y");
     }
@@ -124,7 +125,7 @@ class Transaction extends Model
         }else{
             // si les comptes ont pour meme user
             if(!is_null($id)){
-                if($to == $id){
+                if($from == $id){
                     return true;
                 }else{
                     return false;
@@ -162,10 +163,13 @@ class Transaction extends Model
             if(count($recents) == $quantity )
             return $recents;
 
-            $transactionDate = Carbon::parse($transaction->created_at);
+            $date = $transaction->created_at ? $transaction->created_at : $transaction->transac_date;
+            $transactionDate = Carbon::parse($date);
             if(!$transactionDate->lessThan($date))
             {
                 array_push($recents,$transaction);
+            }else{
+                return $recents;
             }
         }   
 
@@ -292,6 +296,8 @@ class Transaction extends Model
     {
         $quantity = 7;
         $expenseTotal = 0;
+        $debit = 0;
+        $credit = 0;
         $dayExpense[] = [];
         $today = Carbon::today();
 
@@ -323,15 +329,19 @@ class Transaction extends Model
                                     if($transaction->expense($account_id))
                                     {
                                         $dayExpense[0][$i] += $amount;
+                                        $debit += $amount;
                                     }else{
                                         $dayExpense[1][$i] += $amount;
+                                        $credit += $amount;
                                     }
                                 }else{
                                     if($transaction->expense())
                                     {
                                         $dayExpense[0][$i] += $amount;
+                                        $debit += $amount;
                                     }else{
                                         $dayExpense[1][$i] += $amount;
+                                        $credit += $amount;
                                     }
                                 }
                                 break;
@@ -374,6 +384,9 @@ class Transaction extends Model
                     }
                 }
             }
+
+        $expenseDayPercent[3][0] = $debit;
+        $expenseDayPercent[3][1] = $credit;
 
         return $expenseDayPercent;
     }
