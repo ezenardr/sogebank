@@ -44,9 +44,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::post('/new-account', [AccountController::class, 'createAccount'])->name('create-account');
 
-        Route::get('/account-details/{account_id?}', function (string $account_id) {
-            return view('account-details', ['account_id' => $account_id]);
-        });
+        Route::get('/account-details/{account}', [AccountController::class, 'accountDetails']);
     });
 
 

@@ -13,7 +13,7 @@ class TransactionController extends Controller
 {
     public function showTransaction(Request $request)
     {
-        $user = $user = auth()->user();
+        $user = auth()->user();
 
         $transactions = Transaction::getTransactionsByUser($user);
         $incomeTransactions = Transaction::getIncomeTransactionsByUser($user);

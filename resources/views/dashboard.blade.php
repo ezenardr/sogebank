@@ -234,9 +234,7 @@
                         {{-- Fin histogramme --}}                      
                     </div>    
                 </div>
-
             </div>    
-
         </div>
        
         <div class="flex flex-col gap-3">
@@ -265,6 +263,7 @@
             <form class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
                 <div class="flex justify-between items-center">
 
+                    {{-- nos beneficiaires --}}
                     @forelse ($beneficiaries as $beneficiary) 
                         {{-- Div des profils --}}
 
