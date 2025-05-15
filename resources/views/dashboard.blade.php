@@ -1,13 +1,13 @@
 <x-app-layout>
     @section('title', 'Dashboard')
     @section('pageTitle', 'Dashboard')
-    <div class="flex flex-col lg:grid grid-cols-3 gap-8">
+    <div class="flex flex-col lg:grid lg:grid-cols-3 gap-8">
         <div class="col-span-2">
             <div class="flex flex-col gap-3">
                 {{-- Hero cartes --}}
                 <div class="flex items-center justify-between">
-                    <span class="font-semibold text-[22px] text-primary-2">My Cards</span>
-                    <span class=" font-semibold text-[17px] text-primary-2">See All</span>
+                    <span class="font-semibold text-[22px] text-primary-2">Mes Cartes</span>
+                    <span class=" font-semibold text-[17px] text-primary-2">Voir Tous</span>
                 </div>
                 {{-- Cartes container --}}
                 <div class="flex overflow-x-auto lg:grid grid-cols-2 gap-10">
@@ -103,7 +103,7 @@
                                 <div>
                                     <span
                                         class="text-[10px] tracking-wider text-[#718EBF] flex flex-col justify-between">VALID THRU</span>
-                                    <span class="text-primary-2 text-[13px] tracking-wide font-normal">12/22</span>
+                                    <span class="text-primary-2 text-[13px] tracking-wide font-semibold">12/22</span>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                         <div class=" w-full h-1/3 border-t border-[#DFEAF2] rounded-b-[20px]">
                             <div class="flex justify-between px-4 lg:px-[25px] py-[20px]">
                                 <span
-                                    class="text-primary-2 text-[15px] tracking-wide font-normal">3778********1234</span>
+                                    class="text-primary-2 text-[18px] tracking-wide font-normal">3778********1234</span>
                                 <div class="justify-center items-center">
                                     <svg width="40.5" height="28.5" viewBox="0 0 27 19" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -131,36 +131,45 @@
 
         <div class="flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Transactions Récentes</span>
-            <div class=" flex flex-col gap-4 bg-white px-8 py-4 max-w-[450px] rounded-[25px]">
-                @foreach ($recentTransaction as $recent)
-                    <div class="flex justify-between items-center ">
-                        <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#E7EDFF]">
-                            @php $recent->getIcone() @endphp
+            <div class=" flex flex-col gap-4 bg-white px-8 py-4 max-w-[450px] max-h-[210px] rounded-[25px] overflow-y-scroll">
+                @if(count($recentTransaction) > 0)
+                    @foreach ($recentTransaction as $recent)
+                        <div class="flex justify-between items-center ">
+                            <div class="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-[#E7EDFF]">
+                                @php $recent->getIcone() @endphp
+                            </div>
+                            <div class="flex-col flex">
+                                <span class="font-medium text-[16px] text-[#232323]">{{$recent->transac_type}}</span>
+                                <span class="text-[15px] text-[#718EBF]">{{ $recent->getDate() }}</span>
+                            </div>
+                            <div> 
+                                <span
+                                    @class([
+                                        'text-[16px] font-medium',
+                                        'text-[#FF4B4A]' => $recent->expense(),
+                                        'text-[#41D4A8]' => (!$recent->expense())
+                                    ])>{{ $recent->getTag()}}{{ $recent->getSum()}}</span>
+                            </div>
                         </div>
-                        <div class="flex-col flex">
-                            <span class="font-medium text-[16px] text-[#232323]">{{$recent->transac_type}}</span>
-                            <span class="text-[15px] text-[#718EBF]">{{ $recent->getDate() }}</span>
+                    @endforeach
+                @else
+                    <div class="flex flex-col items-center">
+                        <div class="w-[150px]">
+                            <img src="{{'/assets/emptyState/noTransaction.svg'}}">
                         </div>
-                        <div> 
-                            <span
-                                @class([
-                                    'text-[16px] font-medium',
-                                    'text-[#FF4B4A]' => $recent->expense(),
-                                    'text-[#41D4A8]' => (!$recent->expense())
-                                ])>{{ $recent->getTag()}}{{ $recent->getSum()}}</span>
-                        </div>
+                        <span class="font-semibold text-[12px] text-primary-2">Aucune Transaction Recente!</span>
                     </div>
-                @endforeach
+                @endif 
             </div>
         </div>
     </div>
     {{-- part-2  --}}
-    <div class="mt-4 flex flex-col lg:grid grid-cols-3 gap-8">
+    <div class="mt-4 flex flex-col lg:grid lg:grid-cols-3 gap-8">
         <div class="col-span-2">
             <div class="flex flex-col gap-3">
                 {{-- hero--}}
                 <div class="flex items-center">
-                    <span class="font-semibold text-[22px] text-primary-2">Weekly Activity</span>
+                    <span class="font-semibold text-[22px] text-primary-2">Activite Hebdomadaire</span>
                     
                 </div>
                 <div class="bg-white flex flex-col rounded-[25px] h-[322px] p-4">
@@ -240,7 +249,7 @@
         </div>
        
         <div class="flex flex-col gap-3">
-            <span class="font-semibold text-[22px] text-primary-2">Expense Statistics</span>
+            <span class="font-semibold text-[22px] text-primary-2">Statistique de Depenses </span>
             <div class=" bg-white max-w-[450px] rounded-[25px] h-[322px] p-4">
                 <div class="flex justify-between items-center ">
                 </div>
@@ -250,133 +259,132 @@
     {{-- part-3 --}}
     <div class="mt-4 flex flex-col lg:grid grid-cols-10 gap-8 mb-24">
         <div class="col-span-4 flex flex-col gap-3">
-            <span class="font-semibold text-[22px] text-primary-2">Quick Transfer</span>
-
-            {{--
-                @notice - Important! - Vue manquante
-                Pour la vue des profiles de beneficaire - quick Transfert
-
-                les profiles doivent etre des champs de selections
-                lorsque l'utilisateur clique dessus, le profil du beneficiare en question
-                doit etre selectionner.
-
-            --}}
-
+            <span class="font-semibold text-[22px] text-primary-2">Transferts Rapides</span>
             <form class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
-                <div class="flex justify-between items-center">
-
-                    @forelse ($beneficiaries as $beneficiary) 
-                        {{-- Div des profils --}}
-
-                        {{-- @notice - Important! - Vue manquante - doit etre des champs de selection --}}
-                        <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
-                            {{-- Profils  --}}
-                            <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
-                                {{-- Image de profil  --}}
-                                <div class="w-[70px] rounded-full overflow-hidden">
-                                    <span class="w-10 h-10 object-cover bg-gray-100 font-bold">{{Str::substr($beneficiary->first_name,0,1) . ' ' . Str::substr($beneficiary->last_name,0,1)}}</span>
-                                    
-                                    {{-- <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover"> --}}
-                                </div>
-                                <div class="flex flex-col items-center justify-center">
-                                    {{-- <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">{{$beneficiary->first_name . ' ' . $beneficiary->last_name}}</span> --}}
-                                    {{-- <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">{{$beneficiary->email}}</span> --}}
-                                </div>
-                            </div>
+                @if(count($beneficiaries) > 0)
+                    <div class="flex justify-between items-center">
+                        <div class="flex w-full space-x-6 py-2 pr-2 items-center overflow-x-scroll lg:space-x-4">
+                            @foreach ($beneficiaries as $index => $beneficiary)
+                                <input 
+                                    type="radio" 
+                                    id="beneficiary-{{$index}}" 
+                                    name="radio-group" 
+                                    value="{{$beneficiary->beneficiary_id}}" 
+                                    class="hidden peer"> 
+                                <label for="beneficiary-{{$index}}" class="block cursor-pointer transition-all" >
+                                    <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
+                                        {{-- Profils  --}}
+                                        <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
+                                            {{-- Image de profil  --}}
+                                            <div 
+                                                class="w-[60px] h-[60px] rounded-full cursor-pointer bg-[#F5F7FA] flex items-center justify-center text-[25px] font-semibold
+                                                text-primary-2 transition-transform ease-in-out duration-300 border-primary-3 hover:border hover:scale-105
+                                                peer-checked:scale-105 peer-checked:drop-shadow-md peer-checked:border-1"
+                                                >
+                                                {{Str::substr($beneficiary->first_name,0,1) . ' ' . Str::substr($beneficiary->last_name,0,1)}}</span>
+                                                {{-- <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover"> --}}
+                                            </div>
+                                            <div class="flex flex-col items-center justify-center">
+                                                <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">{{ explode(' ', $beneficiary->first_name)[0] }}</span>
+                                                {{-- <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">{{$beneficiary->email}}</span> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label> 
+                            @endforeach
                         </div>
-                    
                         {{-- Bouton suivant --}}
-                        <div class="w-[20%] flex justify-end">
+                        <div class="w-[20%] flex justify-end hover:translate-x-1 ease-linear duration-300" onclick="nextBeneficiary()">
                             <div class="rounded-full w-[50px] h-[50px] shadow-md flex items-center justify-center bg-white">
                                 <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 13L7 7L1 1" stroke="#2D60FF" stroke-width="2"/>
                                 </svg>
                             </div>
                         </div>
-                    @empty 
-                        <a href="/beneficiary/new-beneficiary" class="lg:hidden bg-white p-4 rounded-[12px] flex items-center gap-4 w-full justify-center">
+                    </div>
+                    
+                    <div>
+                        <label class="font-normal text-center text-[16px] text-[#718EBF]" for="recipient_account_id">
+                            Compte Bénéficiaire
+                        </label>
+                        <select name="recipient_account_id" id="recipient_account_id" class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#b2b2b6] font-medium focus:outline-primary-3">
+                            <option value="">--Séléctionner un compte--</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="font-normal text-center text-[16px] text-[#718EBF]" for="recipient_account_id">
+                            Compte Debiteur
+                        </label>
+                        <select name="account_id" id="account_id" class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#b2b2b6] font-medium focus:outline-primary-3">
+                            @foreach($accounts as $account)
+                                <option value="{{$account->id}}">{{$account -> account_number}} 
+                                    @if ($account->account_type == 'checking')
+                                        Chèque
+                                    @elseif ($account->account_type == 'savings')
+                                        Épargne
+                                    @else
+                                        Business
+                                    @endif 
+                                    {{ $account->currency == 'HTG' ? 'Gourdes' : 'Dollars' }} {{$account -> currency}} {{$account -> available_balance}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="flex space-x-4">
+
+                        <div class="flex items-center">
+                            <span class="font-normal text-center text-[16px] text-[#718EBF] whitespace-nowrap">Write Among</span>
+                        </div>
+                    
+                        <div class="w-[250px]">
+                            <div class="w-[100%]">
+                                <div class="w-[100%] flex h-[20%] bg-[#EDF1F7] rounded-[50px]">
+                                    <input type="text" class="w-[50%] rounded-[50px] p-4 bg-[#EDF1F7] font-medium text-[15px] text-[#718EBF] focus:outline-none lg:" placeholder="$4456" />
+                                    <div class="w-[50%] h-full bg-primary-3 rounded-[50px] p-4 flex justify-around hover:translate-x-1 ease-linear duration-300">
+                                        <input type="submit" class="h-full self-center text-white text-[16px] font-medium" value="Send" /> 
+                                        <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M25.9824 0.923369C26.1091 0.333347 25.5307 -0.164153 24.9664 0.0511577L0.490037 9.39483C0.195457 9.50731 0.000610804 9.78965 1.43342e-06 10.105C-0.000607937 10.4203 0.193121 10.7034 0.487294 10.817L7.36317 13.4726V21.8369C7.36317 22.1897 7.60545 22.4963 7.94873 22.5779C8.28972 22.659 8.64529 22.4967 8.80515 22.1796L11.6489 16.5364L18.5888 21.6868C19.011 22.0001 19.6178 21.8008 19.7714 21.2974C26.251 0.0528342 25.9708 0.97674 25.9824 0.923369ZM19.9404 3.60043L8.01692 12.092L2.88664 10.1106L19.9404 3.60043ZM8.8866 13.3428L19.2798 5.94118C10.3366 15.3758 10.8037 14.8792 10.7647 14.9317C10.7067 15.0096 10.8655 14.7058 8.8866 18.6327V13.3428ZM18.6293 19.8197L12.5206 15.2862L23.566 3.63395L18.6293 19.8197Z" fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                @else
+                    <div class="flex flex-col items-center">
+                        <div class="w-[150px]">
+                            <img src="{{'/assets/emptyState/noBeneficiary.svg'}}">
+                        </div>
+                        <span class="font-semibold text-[12px] text-primary-2">Aucun Bénéficiaire Trouvé!</span>
+                    </div>
+                    <div>
+                        <a href="/beneficiary/new-beneficiary" class="p-2 rounded-[12px] flex items-center gap-4 w-full justify-center">
                             <svg width="30" height="30" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8.75 9.75H4.25V8.25H8.75V3.75H10.25V8.25H14.75V9.75H10.25V14.25H8.75V9.75Z"
                                     fill="#718EBF"/>
                             </svg>
                             <span class="font-medium text-[16px]">Nouveau Bénéficiaire</span>
                         </a>
-                    @endforelse
-                </div>
-                
-                <div>
-                    <label
-                        class="text-[#232323] font-normal"
-                        for="recipient_account_id">
-                        Compte
-                    </label><br>
-                    <select name="recipient_account_id" id="recipient_account_id"
-                            class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
-                        <option value="">--Séléctionner un compte--</option>
-
-                    </select>
-                </div>
-
-                <div>
-
-                
-                    <label
-                        class="text-[#232323] font-normal"
-                        for="recipient_account_id">
-                        De
-                    </label><br>
-                    <select name="account_id" id="account_id"
-                            class="mt-1 p-3 w-full border border-[#DFEAF2] rounded-[15px] text-[#718EBF]">
-                        <option value="">--Séléctionner un compte--</option>
-                        @foreach($accounts as $account)
-                            <option
-                                value="{{$account->id}}">{{$account -> account_number}} @if ($account->account_type == 'checking')
-                                    Chèque
-                                @elseif ($account->account_type == 'savings')
-                                    Épargne
-                                @else
-                                    Business
-                                @endif {{ $account->currency == 'HTG' ? 'Gourdes' : 'Dollars' }} {{$account -> currency}} {{$account -> available_balance}}</option>
-                        @endforeach
-
-                    </select>
-            </div>
-
-                <div class="flex space-x-4">
-
-                    <div class="flex items-center">
-                        <span class="font-normal text-center text-[16px] text-[#718EBF] whitespace-nowrap">Write Among</span>
                     </div>
-                
-                    <div class="w-[250px]">
-                        <div class="w-[100%]">
-                            <div class="w-[100%] flex h-[20%] bg-[#EDF1F7] rounded-[50px]">
-                                <input type="text" class="w-[50%] rounded-[50px] p-4 bg-[#EDF1F7] font-medium text-[15px] text-[#718EBF] focus:outline-none lg:" placeholder="$4456" />
-                                <div class="w-[50%] h-full bg-primary-3 rounded-[50px] p-4 flex justify-around">
-                                    <input type="submit" class="h-full self-center text-white text-[16px] font-medium" value="Send" /> 
-                                    <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M25.9824 0.923369C26.1091 0.333347 25.5307 -0.164153 24.9664 0.0511577L0.490037 9.39483C0.195457 9.50731 0.000610804 9.78965 1.43342e-06 10.105C-0.000607937 10.4203 0.193121 10.7034 0.487294 10.817L7.36317 13.4726V21.8369C7.36317 22.1897 7.60545 22.4963 7.94873 22.5779C8.28972 22.659 8.64529 22.4967 8.80515 22.1796L11.6489 16.5364L18.5888 21.6868C19.011 22.0001 19.6178 21.8008 19.7714 21.2974C26.251 0.0528342 25.9708 0.97674 25.9824 0.923369ZM19.9404 3.60043L8.01692 12.092L2.88664 10.1106L19.9404 3.60043ZM8.8866 13.3428L19.2798 5.94118C10.3366 15.3758 10.8037 14.8792 10.7647 14.9317C10.7067 15.0096 10.8655 14.7058 8.8866 18.6327V13.3428ZM18.6293 19.8197L12.5206 15.2862L23.566 3.63395L18.6293 19.8197Z" fill="white"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                </div>
+                @endif
             </form>
-        </div>    
+        </div>  
+        
+        
         <div class="col-span-6">
             <div class="flex flex-col gap-3">
                 {{-- hero--}}
                 <div class="flex items-center">
-                    <span class="font-semibold text-[22px] text-primary-2">Balance History</span>
+                    <span class="font-semibold text-[22px] text-primary-2">Historique de Balances</span>
                 </div>
                 <div class=" bg-white rounded-[25px] p-4 h-[276px]" ></div>
 
             </div>    
 
         </div>
-       
                    
     </div>
     <script>
