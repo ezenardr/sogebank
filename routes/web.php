@@ -4,6 +4,7 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\CardsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransfertController;
 use App\Http\Controllers\TransactionController;
@@ -19,12 +20,11 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::group(['prefix' => '/transactions'], function() {
+    Route::group(['prefix' => '/transactions'], function () {
         Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
         Route::get('/{id}/pdf', [PDFController::class, 'generateTransactionPDF']);
-        Route::get('/add-card', function () {
-            return view('add-card');
-            });            
+        Route::get('/add-card', [CardsController::class, 'showAddCard']);
+        Route::post('/add-new-card', [CardsController::class, 'AddCard']);
     });
 
     Route::group(['prefix' => '/send-money'], function () {
@@ -36,7 +36,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/third-party-sogebank', [TransfertController::class, 'ShowSendMoneyToThirdPartySogebank'])->name('ShowSendMoneyToThirdPartySogebank');
         Route::post('/third-party-sogebank', [TransfertController::class, 'SendMoney']);
-
     });
 
     Route::group(['prefix' => '/account'], function () {
@@ -65,5 +64,4 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.updatePreferences');
         Route::post('/security', [SettingsController::class, 'changePassword'])->name('settings.changePassword');
     });
-
 });
