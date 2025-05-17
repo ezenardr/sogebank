@@ -5,3 +5,9 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+.selected {
+    border-width:1px ;
+    border-color: #2D60FF;
+    transform: scale(1.07);
+}
