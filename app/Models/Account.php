@@ -63,4 +63,86 @@ class Account extends Model
         return false;
     }
 
+    public static function incomeFor($id)
+    {
+        $incomeTransactions = self::creditFor($id);
+        $income = 0;
+        
+        foreach($incomeTransactions as $incomeTransaction)
+        {
+            if(empty($incomeTransaction))
+            return 0;
+
+            $income += $incomeTransaction->amount;
+        }
+        return $income;
+    }
+
+    public static function expenseFor($id)
+    {
+        $expenseTransactions = self::debitFor($id);
+        $expense = 0;
+
+        foreach($expenseTransactions as $expenseTransaction)
+        {
+            if(empty($expenseTransaction))
+            return 0;
+
+            $expense += $expenseTransaction->amount;
+        }
+        return $expense;
+    }
+
+    public static function savingFor($id)
+    {
+        $saving = 0;
+        return $saving;
+    }
+
+    public static function creditFor($id)
+    {
+        return Transaction::where('recipient_account_id',$id)
+        ->orderByRaw('created_at DESC')
+        ->get();
+    }
+
+    public static function debitFor($id)
+    {
+        return (Auth::user())
+        ->transactions()
+        ->where('account_id',$id)
+        ->orderByRaw('created_at DESC')
+        ->get();
+    }
+
+    public static function lastTransactionFor($id,$limit = false,$qte = 3)
+    {
+        $debit = null;
+        $credit = null;
+
+        $debit = self::debitFor($id);
+        $credit = self::creditFor($id);
+        
+        $transactions = $debit->concat($credit)->sortByDesc('created_at');
+        return $limit ? $transactions->take($qte) : $transactions;
+    }
+
+    public static function balanceFormat($balance)
+    {
+        return number_format((float)$balance,2, ',', '.');
+    }
+
+    public static function debitCredFor($id)
+    {
+        return Transaction::weeklyActivities(
+            self::lastTransactionFor($id), 
+            $id
+        );
+    }
+
+    public function getBalance()
+    {
+        return self::balanceFormat($this->available_balance);
+    }
+
 }

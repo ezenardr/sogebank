@@ -12,15 +12,16 @@ class DashboardController extends Controller
 {
    public function index()
    {
+        $user = Auth::user();
+        $incomeTransactions = Transaction::getIncomeTransactionsByUser($user);
+        $expenseTransactions = Transaction::getExpenseTransactionsByUser($user);
+        $allTransactions =  $incomeTransactions->concat($expenseTransactions)->sortByDesc('transac_date');
+
         $recentTransaction = Transaction::recentTransaction(
-            Transaction::getTransactionsByUser(
-                Auth::user()
-            )
+            $allTransactions
         );
         $weeklyActivities = Transaction::weeklyActivities(
-            Transaction::getTransactionsByUser(
-                Auth::user()
-            )
+            $allTransactions
         );
         // no view
         $expenseStats = '';

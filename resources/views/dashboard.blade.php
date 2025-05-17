@@ -243,9 +243,7 @@
                         {{-- Fin histogramme --}}                      
                     </div>    
                 </div>
-
             </div>    
-
         </div>
        
         <div class="flex flex-col gap-3">
