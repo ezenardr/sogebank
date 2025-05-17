@@ -28,7 +28,11 @@ class Account extends Model
         });
     }
 
-    protected $fillable = ['user_id', 'account_type', 'account_number','currency', 'running_balance', 'available_balance'];
+    public function cards()
+    {
+        return $this->hasOne(Card::class);
+    }
+
 
     public static function generateAccountNumber($type)
     {
@@ -57,7 +61,7 @@ class Account extends Model
             ->accounts()
             ->get();
 
-        if(!is_null($accounts->find($id))){
+        if (!is_null($accounts->find($id))) {
             return true;
         }
         return false;
@@ -67,11 +71,10 @@ class Account extends Model
     {
         $incomeTransactions = self::creditFor($id);
         $income = 0;
-        
-        foreach($incomeTransactions as $incomeTransaction)
-        {
-            if(empty($incomeTransaction))
-            return 0;
+
+        foreach ($incomeTransactions as $incomeTransaction) {
+            if (empty($incomeTransaction))
+                return 0;
 
             $income += $incomeTransaction->amount;
         }
@@ -83,10 +86,9 @@ class Account extends Model
         $expenseTransactions = self::debitFor($id);
         $expense = 0;
 
-        foreach($expenseTransactions as $expenseTransaction)
-        {
-            if(empty($expenseTransaction))
-            return 0;
+        foreach ($expenseTransactions as $expenseTransaction) {
+            if (empty($expenseTransaction))
+                return 0;
 
             $expense += $expenseTransaction->amount;
         }
@@ -101,41 +103,41 @@ class Account extends Model
 
     public static function creditFor($id)
     {
-        return Transaction::where('recipient_account_id',$id)
-        ->orderByRaw('created_at DESC')
-        ->get();
+        return Transaction::where('recipient_account_id', $id)
+            ->orderByRaw('created_at DESC')
+            ->get();
     }
 
     public static function debitFor($id)
     {
         return (Auth::user())
-        ->transactions()
-        ->where('account_id',$id)
-        ->orderByRaw('created_at DESC')
-        ->get();
+            ->transactions()
+            ->where('account_id', $id)
+            ->orderByRaw('created_at DESC')
+            ->get();
     }
 
-    public static function lastTransactionFor($id,$limit = false,$qte = 3)
+    public static function lastTransactionFor($id, $limit = false, $qte = 3)
     {
         $debit = null;
         $credit = null;
 
         $debit = self::debitFor($id);
         $credit = self::creditFor($id);
-        
+
         $transactions = $debit->concat($credit)->sortByDesc('created_at');
         return $limit ? $transactions->take($qte) : $transactions;
     }
 
     public static function balanceFormat($balance)
     {
-        return number_format((float)$balance,2, ',', '.');
+        return number_format((float)$balance, 2, ',', '.');
     }
 
     public static function debitCredFor($id)
     {
         return Transaction::weeklyActivities(
-            self::lastTransactionFor($id), 
+            self::lastTransactionFor($id),
             $id
         );
     }
@@ -144,5 +146,4 @@ class Account extends Model
     {
         return self::balanceFormat($this->available_balance);
     }
-
 }

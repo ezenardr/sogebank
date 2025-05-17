@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Card;
 use Illuminate\View\View;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -12,14 +13,16 @@ use Illuminate\Http\RedirectResponse;
 
 class AccountController extends Controller
 {
-    public function showAccount() :view {
+    public function showAccount(): view
+    {
         $user = auth()->user();
-        $accounts = DB::table('accounts')->get()->where('user_id', '=', $user -> id );
+        $accounts = DB::table('accounts')->get()->where('user_id', '=', $user->id);
 
         return view('account', ['accounts' => $accounts]);
     }
 
-    public function createAccount(Request $request) :RedirectResponse{
+    public function createAccount(Request $request): RedirectResponse
+    {
         $request->validate([
             'account_type' => 'required|in:savings,checking,business',
             'currency' => 'required|in:USD,HTG',
@@ -32,11 +35,11 @@ class AccountController extends Controller
             'user_id' => $user->id,
             'account_type' => $request->account_type,
             'account_number' => $accountNumber,
-            'currency' => $request -> currency
+            'currency' => $request->currency
         ]);
-        $accounts = DB::table('accounts')->get()->where('user_id', '=', $user -> id );
+        $accounts = DB::table('accounts')->get()->where('user_id', '=', $user->id);
         return redirect()->route('show-account', ['accounts' => $accounts]);
-    } 
+    }
 
     public function accountDetails(Account $account)
     {
@@ -48,19 +51,21 @@ class AccountController extends Controller
 
         $debitCreds = Account::debitCredFor($id);
         $saving = Account::savingFor($id);
-        $lastTransactions = Account::lastTransactionFor($id,true);
+        $lastTransactions = Account::lastTransactionFor($id, true);
+        $card = Card::getCardByAccountId($id);
 
         // why ?
         $invoices = '';
 
-        return view('account-details',[
+        return view('account-details', [
             'account' => $account,
             'income' => $income,
             'expense' => $expense,
             'saving' => $saving,
             'transactions' => $lastTransactions,
             'debitCreds' => $debitCreds,
-            'invoices' => $invoices
+            'invoices' => $invoices,
+            'cards' => $card
         ]);
     }
 }

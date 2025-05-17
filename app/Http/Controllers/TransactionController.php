@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Card;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -18,6 +19,7 @@ class TransactionController extends Controller
         $transactions = Transaction::getTransactionsByUser($user);
         $incomeTransactions = Transaction::getIncomeTransactionsByUser($user);
         $expenseTransactions = Transaction::getExpenseTransactionsByUser($user);
+        $cards = Card::getCardsByUser($user);
 
         $allTransactions = $transactions->concat($incomeTransactions);
         $expensiveMonth = Transaction::expensiveMonth($allTransactions);
@@ -25,37 +27,40 @@ class TransactionController extends Controller
 
         // Paginator prepare
         $perPage = 3;
-        $currentPage = request()->input('page',1);
+        $currentPage = request()->input('page', 1);
 
         // All Transactions Paginator
-        $itemsAll = $allTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $allTransacPaginator = Transaction::getTransactionsPaginate($itemsAll,$allTransactions,$currentPage, $perPage);
+        $itemsAll = $allTransactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $allTransacPaginator = Transaction::getTransactionsPaginate($itemsAll, $allTransactions, $currentPage, $perPage);
 
         // Income Transac Paginator
-        $itemsIncome = $incomeTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $incomeTransacPaginator = Transaction::getTransactionsPaginate($itemsIncome ,$incomeTransactions,$currentPage, $perPage);
+        $itemsIncome = $incomeTransactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $incomeTransacPaginator = Transaction::getTransactionsPaginate($itemsIncome, $incomeTransactions, $currentPage, $perPage);
 
         // Expense Transac Paginator
-        $itemsExpense = $expenseTransactions->slice(($currentPage - 1 ) * $perPage, $perPage)->values();
-        $expenseTransacPaginator = Transaction::getTransactionsPaginate($itemsExpense  ,$expenseTransactions,$currentPage, $perPage);
+        $itemsExpense = $expenseTransactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $expenseTransacPaginator = Transaction::getTransactionsPaginate($itemsExpense, $expenseTransactions, $currentPage, $perPage);
 
         if ($request->input('view') == 'income') {
             return view('transactions', [
                 'transactions' => $incomeTransacPaginator,
                 'expensiveMonth' => $expensiveMonth,
-                'mostExpensiveMonth' => $mostExpensiveMonth
+                'mostExpensiveMonth' => $mostExpensiveMonth,
+                'cards' => $cards
             ]);
         } else if ($request->input('view') == 'expense') {
             return view('transactions', [
                 'transactions' =>  $expenseTransacPaginator,
                 'expensiveMonth' => $expensiveMonth,
-                'mostExpensiveMonth' => $mostExpensiveMonth
+                'mostExpensiveMonth' => $mostExpensiveMonth,
+                'cards' => $cards
             ]);
         } else {
             return view('transactions', [
                 'transactions' => $allTransacPaginator,
                 'expensiveMonth' => $expensiveMonth,
-                'mostExpensiveMonth' => $mostExpensiveMonth
+                'mostExpensiveMonth' => $mostExpensiveMonth,
+                'cards' => $cards
             ]);
         }
     }
