@@ -251,9 +251,9 @@
         <div class="flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Statistique de Depenses </span>
             <div class=" bg-white max-w-[450px] rounded-[25px] h-[322px] p-4">
-                <div class="flex justify-between items-center ">
-                </div>
+                {!! $expenseStats->container() !!}
             </div>
+            
         </div>                
     </div>
     {{-- part-3 --}}
