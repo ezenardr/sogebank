@@ -8,7 +8,7 @@
                 {{-- Hero cartes --}}
                 <div class="flex items-center justify-between">
                     <span class="font-semibold text-[18px] text-primary-2">My Cards</span>
-                    <span class=" font-semibold text-[15px] text-primary-2">+ Add Card</span>
+                    <a href="/transactions/add-card" class=" font-semibold text-[15px] text-primary-2">+ Add Card</a>
                 </div>
                 {{-- Cartes container --}}
                 <div class="flex overflow-x-auto lg:grid grid-cols-2 gap-10">

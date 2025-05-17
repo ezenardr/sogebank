@@ -22,6 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => '/transactions'], function() {
         Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
         Route::get('/{id}/pdf', [PDFController::class, 'generateTransactionPDF']);
+        Route::get('/add-card', function () {
+            return view('add-card');
+            });            
     });
 
     Route::group(['prefix' => '/send-money'], function () {
