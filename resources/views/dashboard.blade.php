@@ -249,9 +249,9 @@
         <div class="flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Statistique de Depenses </span>
             <div class=" bg-white max-w-[450px] rounded-[25px] h-[322px] p-4">
-                <div class="flex justify-between items-center ">
-                </div>
+                {!! $expenseStats->container() !!}
             </div>
+            
         </div>                
     </div>
     {{-- part-3 --}}
@@ -261,34 +261,39 @@
             <form class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
                 @if(count($beneficiaries) > 0)
                     <div class="flex justify-between items-center">
-                        <div class="flex w-full space-x-6 py-2 pr-2 items-center overflow-x-scroll lg:space-x-4">
+                        <div class="flex w-full space-x-6 p-2 items-center overflow-x-scroll lg:space-x-4">
                             @foreach ($beneficiaries as $index => $beneficiary)
-                                <input 
-                                    type="radio" 
-                                    id="beneficiary-{{$index}}" 
-                                    name="radio-group" 
-                                    value="{{$beneficiary->beneficiary_id}}" 
-                                    class="hidden peer"> 
-                                <label for="beneficiary-{{$index}}" class="block cursor-pointer transition-all" >
-                                    <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
-                                        {{-- Profils  --}}
-                                        <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
-                                            {{-- Image de profil  --}}
-                                            <div 
-                                                class="w-[60px] h-[60px] rounded-full cursor-pointer bg-[#F5F7FA] flex items-center justify-center text-[25px] font-semibold
-                                                text-primary-2 transition-transform ease-in-out duration-300 border-primary-3 hover:border hover:scale-105
-                                                peer-checked:scale-105 peer-checked:drop-shadow-md peer-checked:border-1"
-                                                >
-                                                {{Str::substr($beneficiary->first_name,0,1) . ' ' . Str::substr($beneficiary->last_name,0,1)}}</span>
-                                                {{-- <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover"> --}}
-                                            </div>
-                                            <div class="flex flex-col items-center justify-center">
-                                                <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">{{ explode(' ', $beneficiary->first_name)[0] }}</span>
-                                                {{-- <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">{{$beneficiary->email}}</span> --}}
+                                <div data-beneficiary>
+                                    <input 
+                                        type="radio" 
+                                        id="beneficiary-{{$index}}" 
+                                        name="beneficiary_id" 
+                                        value="{{$beneficiary->beneficiary_id}}" 
+                                        {{ $loop->first ? 'checked' : '' }}
+                                        class="hidden peer"> 
+                                    <label 
+                                        for="beneficiary-{{$index}}" class="block cursor-pointer transition-all" >
+                                        <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
+                                            {{-- Profils  --}}
+                                            <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
+                                                {{-- Image de profil  --}}
+                                                <div 
+                                                    data-beneficiary-profil
+                                                    onclick="onclickSelection(event)"
+                                                    class="w-[60px] h-[60px] rounded-full cursor-pointer bg-[#F5F7FA] flex items-center justify-center text-[25px] font-semibold
+                                                    text-primary-2 transition-transform ease-in-out duration-300 hover:border-primary-3 hover:border hover:scale-105"
+                                                    >
+                                                    {{Str::substr($beneficiary->first_name,0,1) . ' ' . Str::substr($beneficiary->last_name,0,1)}}</span>
+                                                    {{-- <img src="{{'/assets/images/profile-mage.png'}}" alt="Livia Bator" class="w-full h-full object-cover"> --}}
+                                                </div>
+                                                <div class="flex flex-col items-center justify-center">
+                                                    <span class="font-normal text-[16px] text-[#232323] whitespace-nowrap">{{ explode(' ', $beneficiary->first_name)[0] }}</span>
+                                                    {{-- <span class="font-normal text-[15px] text-[#718EBF] whitespace-nowrap">{{$beneficiary->email}}</span> --}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </label> 
+                                    </label> 
+                                </div>
                             @endforeach
                         </div>
                         {{-- Bouton suivant --}}
@@ -386,6 +391,66 @@
                    
     </div>
     <script>
+        // Variable globale pour suivre l'index courant
+        let currentBeneficiaryIndex = 0;
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstProfile = document.querySelector('[data-beneficiary-profil]');
+            if (firstProfile) {
+                firstProfile.classList.add('selected');
+                currentBeneficiaryIndex = 0;
+            }
+        });
+        // Fonction suivant
+        function nextBeneficiary() {
+            const beneficiaries = document.querySelectorAll('[data-beneficiary]');
+            const beneficiaries_profil = document.querySelectorAll('[data-beneficiary-profil]');
+
+            // Désélectionner le profil actuel
+            beneficiaries_profil[currentBeneficiaryIndex].classList.remove('selected');
+            beneficiaries[currentBeneficiaryIndex].querySelector('input[type="radio"]').checked = false;
+
+            // Passer au suivant (avec boucle si fin de liste)
+            currentBeneficiaryIndex = (currentBeneficiaryIndex + 1) % beneficiaries.length;
+
+            // Sélectionner le nouveau profil
+            beneficiaries_profil[currentBeneficiaryIndex].classList.add('selected');
+            beneficiaries[currentBeneficiaryIndex].querySelector('input[type="radio"]').checked = true;
+
+            // Faire défiler jusqu'au profil sélectionné
+            beneficiaries[currentBeneficiaryIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+        // Fonction pour gérer le clic sur un profil
+        function onclickSelection(event) {
+            const clickedProfile = event.currentTarget;
+            const allProfiles = document.querySelectorAll('[data-beneficiary-profil]');
+            const allRadios = document.querySelectorAll('[data-beneficiary] input[type="radio"]');
+            
+            // Retirer la classe 'selected' de tous les profils et désélectionner tous les radios
+            allProfiles.forEach(profile => profile.classList.remove('selected'));
+            allRadios.forEach(radio => radio.checked = false);
+            
+            // Trouver l'index du profil cliqué
+            const profilesArray = Array.from(allProfiles);
+            currentBeneficiaryIndex = profilesArray.indexOf(clickedProfile);
+            
+            // Sélectionner le radio correspondant et ajouter la classe 'selected'
+            allRadios[currentBeneficiaryIndex].checked = true;
+            clickedProfile.classList.add('selected');
+            
+            // Faire défiler jusqu'au profil sélectionné
+            clickedProfile.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+
         document.getElementById('beneficiary').addEventListener('change', function () {
             let beneficiaryId = this.value;
             let accountSelect = document.getElementById('recipient_account_id');
