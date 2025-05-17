@@ -22,10 +22,10 @@ class ExpenseStat extends Chart
 
         try {
             $transactions = Transaction::where('user_id', Auth::id())
-                             ->groupBy('category')
-                             ->selectRaw('category, sum(amount) as total')
-                             ->pluck('total', 'category')
-                             ->toArray();
+                ->groupBy('category')
+                ->selectRaw('category, sum(amount) as total')
+                ->pluck('total', 'category')
+                ->toArray();
             
             $data = !empty($transactions) ? $transactions : $defaultData;
         } catch (\Exception $e) {

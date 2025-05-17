@@ -231,8 +231,9 @@
     <div class="mt-4 flex flex-col lg:grid grid-cols-10 gap-8 mb-24">
         <div class="col-span-4 flex flex-col gap-3">
             <span class="font-semibold text-[22px] text-primary-2">Transferts Rapides</span>
-            <form class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
+            <form action="/send-money/third-party-sogebank" method="post" class=" flex flex-col gap-8 bg-white p-4 rounded-[25px] lg:p-8">
                 @if(count($beneficiaries) > 0)
+                    @csrf
                     <div class="flex justify-between items-center">
                         <div class="flex w-full space-x-6 p-2 items-center overflow-x-scroll lg:space-x-4">
                             @foreach ($beneficiaries as $index => $beneficiary)
@@ -240,7 +241,7 @@
                                     <input 
                                         type="radio" 
                                         id="beneficiary-{{$index}}" 
-                                        name="beneficiary_id" 
+                                        name="beneficiary" 
                                         value="{{$beneficiary->beneficiary_id}}" 
                                         {{ $loop->first ? 'checked' : '' }}
                                         class="hidden peer"> 
@@ -248,7 +249,7 @@
                                         for="beneficiary-{{$index}}" class="block cursor-pointer transition-all" >
                                         <div name="beneficiary" id="beneficiary" class="w-[80%] flex space-x-4 justify-center items-center lg:space-x-6">
                                             {{-- Profils  --}}
-                                            <div value="{{$beneficiary->beneficiary_id}}" class="w-[33%] flex flex-col items-center">
+                                            <div class="w-[33%] flex flex-col items-center">
                                                 {{-- Image de profil  --}}
                                                 <div 
                                                     data-beneficiary-profil
@@ -317,7 +318,7 @@
                         <div class="w-[250px]">
                             <div class="w-[100%]">
                                 <div class="w-[100%] flex h-[20%] bg-[#EDF1F7] rounded-[50px]">
-                                    <input type="text" class="w-[50%] rounded-[50px] p-4 bg-[#EDF1F7] font-medium text-[15px] text-[#718EBF] focus:outline-none lg:" placeholder="$4456" />
+                                    <input type="text" name="amount" class="w-[50%] rounded-[50px] p-4 bg-[#EDF1F7] font-medium text-[15px] text-[#718EBF] focus:outline-none lg:" placeholder="$4456" />
                                     <div class="w-[50%] h-full bg-primary-3 rounded-[50px] p-4 flex justify-around hover:translate-x-1 ease-linear duration-300">
                                         <input type="submit" class="h-full self-center text-white text-[16px] font-medium" value="Send" /> 
                                         <svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -363,6 +364,7 @@
         </div>
                    
     </div>
+
     <script>
         // Variable globale pour suivre l'index courant
         let currentBeneficiaryIndex = 0;
@@ -374,6 +376,9 @@
                 firstProfile.classList.add('selected');
                 currentBeneficiaryIndex = 0;
             }
+
+            const firstBeneficiary = document.querySelectorAll('[data-beneficiary] input[type="radio"]');
+            getBeneficiaryAccount(firstBeneficiary[0].value);
         });
         // Fonction suivant
         function nextBeneficiary() {
@@ -383,13 +388,18 @@
             // Désélectionner le profil actuel
             beneficiaries_profil[currentBeneficiaryIndex].classList.remove('selected');
             beneficiaries[currentBeneficiaryIndex].querySelector('input[type="radio"]').checked = false;
-
+    
             // Passer au suivant (avec boucle si fin de liste)
             currentBeneficiaryIndex = (currentBeneficiaryIndex + 1) % beneficiaries.length;
 
             // Sélectionner le nouveau profil
             beneficiaries_profil[currentBeneficiaryIndex].classList.add('selected');
             beneficiaries[currentBeneficiaryIndex].querySelector('input[type="radio"]').checked = true;
+            
+            //affiche les comptes du beneficiares
+            let currentBeneficiary = beneficiaries[currentBeneficiaryIndex];
+            let currentBeneficiaryrad = currentBeneficiary.querySelector('input[type="radio"]');
+            getBeneficiaryAccount(currentBeneficiaryrad.value);
 
             // Faire défiler jusqu'au profil sélectionné
             beneficiaries[currentBeneficiaryIndex].scrollIntoView({
@@ -414,6 +424,11 @@
             
             // Sélectionner le radio correspondant et ajouter la classe 'selected'
             allRadios[currentBeneficiaryIndex].checked = true;
+
+            //affiche les comptes du beneficiares
+            let currentBeneficiaryrad = allRadios[currentBeneficiaryIndex];
+            getBeneficiaryAccount(currentBeneficiaryrad.value)
+
             clickedProfile.classList.add('selected');
             
             // Faire défiler jusqu'au profil sélectionné
@@ -424,8 +439,9 @@
             });
         }
 
-        document.getElementById('beneficiary').addEventListener('change', function () {
-            let beneficiaryId = this.value;
+        //affiche les comptes du beneficiaires
+        function getBeneficiaryAccount(beneficiaryId)
+        {
             let accountSelect = document.getElementById('recipient_account_id');
 
             // Clear existing options
@@ -444,7 +460,7 @@
                     })
                     .catch(error => console.error('Erreur:', error));
             }
-        });
+        }
     </script>
 
 </x-app-layout>
