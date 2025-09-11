@@ -1,16 +1,67 @@
 <?php
 
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\CardsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TransfertController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/transactions', function () {
-    return view('transactions');
-});
-Route::get('/account', function () {
-    return view('account');
-});
-Route::get('/settings', function () {
-    return view('settings');
+Route::get('/auth/register', [AuthController::class, 'showRegister'])->name('auth.ShowRegister');
+Route::post('/auth/register', [AuthController::class, 'register'])->name('auth.register');
+Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::group(['prefix' => '/transactions'], function () {
+        Route::get('/', [TransactionController::class, 'showTransaction'])->name('show-transaction');
+        Route::get('/{id}/pdf', [PDFController::class, 'generateTransactionPDF']);
+        Route::get('/add-card', [CardsController::class, 'showAddCard']);
+        Route::post('/add-new-card', [CardsController::class, 'AddCard']);
+    });
+
+    Route::group(['prefix' => '/send-money'], function () {
+        Route::get('/', function () {
+            return view('send-money');
+        });
+        Route::get('/my-account', [TransfertController::class, 'ShowSendMoneyBetweenMyAccount'])->name('ShowSendMoneyBetweenMyAccount');
+        Route::post('/my-account', [TransfertController::class, 'SendMoney']);
+
+        Route::get('/third-party-sogebank', [TransfertController::class, 'ShowSendMoneyToThirdPartySogebank'])->name('ShowSendMoneyToThirdPartySogebank');
+        Route::post('/third-party-sogebank', [TransfertController::class, 'SendMoney']);
+    });
+
+    Route::group(['prefix' => '/account'], function () {
+        Route::get('/', [AccountController::class, 'showAccount'])->name('show-account');
+
+        Route::get('/new-account', function () {
+            return view('new-account');
+        });
+        Route::post('/new-account', [AccountController::class, 'createAccount'])->name('create-account');
+
+        Route::get('/account-details/{account}', [AccountController::class, 'accountDetails']);
+    });
+
+
+    Route::group(['prefix' => '/beneficiary'], function () {
+        Route::get('/', [BeneficiaryController::class, 'ShowBeneficiary'])->name('show-beneficiary');
+
+        Route::get('/new-beneficiary', [BeneficiaryController::class, 'NewBeneficiaryView'])->name('new-beneficiary');
+
+        Route::post('/new-beneficiary', [BeneficiaryController::class, 'AddBeneficiary'])->name('add-beneficiary');
+        Route::get('/{id}/accounts', [BeneficiaryController::class, 'getAccounts']);
+    });
+
+    Route::group(['prefix' => '/settings'], function () {
+        Route::get('/', [SettingsController::class, 'showSettings'])->name('settings');
+        Route::post('/preferences', [SettingsController::class, 'updatePreferences'])->name('settings.updatePreferences');
+        Route::post('/security', [SettingsController::class, 'changePassword'])->name('settings.changePassword');
+    });
 });

@@ -19,6 +19,7 @@ export default {
                 "primary-2" : "#343C6A",
                 "primary-1" : "#FEAA09",
                 "secondary" : "#FE5C73",
+                "secondary-2" : "#16DBCC"
             }
         },
     },
